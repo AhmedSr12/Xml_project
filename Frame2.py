@@ -36,6 +36,8 @@ class frame2():
             canvas.configure(scrollregion=canvas.bbox("all"), width=1250, height=800)
 
         canvas = Canvas(self.Master)
+        self.scroll = Frame(self.Master)
+        self.scroll.pack(side=BOTTOM,fill="x")
         self.frame = Frame(canvas)
         myscrollbar = Scrollbar(self.Master, command=canvas.yview)
         canvas.configure(yscrollcommand=myscrollbar.set)
@@ -45,7 +47,8 @@ class frame2():
         canvas.pack(side=RIGHT)
 
 
-        myscrollbar1 = Scrollbar(self.Master, orient="horizontal", command=canvas.xview)
+
+        myscrollbar1 = Scrollbar(self.scroll, orient="horizontal", command=canvas.xview)
         canvas.configure(xscrollcommand=myscrollbar1.set)
         canvas.create_window((0, 0), window=self.frame, anchor='nw')
         self.frame.bind("<Configure>", myfunction)
