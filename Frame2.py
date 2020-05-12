@@ -8,10 +8,14 @@ class frame2():
         self._4_buttons_master = Frame(self.Master)
         self._4_buttons_master.pack(side=BOTTOM)
         self.path=filePath
-        self.vis_Button = Button(self.master_will_be_deleted, text=" Visualize Errors ", command=self.Errors, font="arial 15 italic", width=20)
+        self.vis_Button = Button(self.master_will_be_deleted, text=" Verify Consistency ", command=self.error, font="arial 15 italic", width=20)
         self.vis_Button.pack(side=BOTTOM)
+
         self.correct_Button = Button(self.master_will_be_deleted, text=" Correct Errors ", command=self.B_4_Buttons,font="arial 15 italic", width=20)
         self.correct_Button.pack(side=BOTTOM)
+        self.correct_Button["state"] = "disabled"
+    def error(self):
+        self.correct_Button["state"] = "normal"
     def Errors(self):
         pass
         # new string is needed
@@ -37,12 +41,24 @@ class frame2():
         canvas.configure(yscrollcommand=myscrollbar.set)
         canvas.create_window((0, 0), window=self.frame, anchor='nw')
         self.frame.bind("<Configure>", myfunction)
-
         myscrollbar.pack(side=RIGHT,fill="y")
         canvas.pack(side=RIGHT)
+
+
+        myscrollbar1 = Scrollbar(self.Master, orient="horizontal", command=canvas.xview)
+        canvas.configure(xscrollcommand=myscrollbar1.set)
+        canvas.create_window((0, 0), window=self.frame, anchor='nw')
+        self.frame.bind("<Configure>", myfunction)
+        myscrollbar1.pack(side="bottom", fill="x")
+        canvas.pack(side="bottom")
+
         f=open(self.path,"r")
         contents=f.read()
-        self.text=Label(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT)
+        #print(contents)
+        #contents="De7k bela hdff"
+        self.text=Text(self.frame,width=1250, height=800)
+        self.text.insert(INSERT, contents)
+        #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT)
         self.text.pack(side=LEFT)
 
 
