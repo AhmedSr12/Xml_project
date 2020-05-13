@@ -1,19 +1,19 @@
-import re
-#import inspect
-#import textwrap
-text='''<?xml version="1.0" encoding="UTF-8"?>
+from XmlFile import xmlFile
+A=xmlFile()
+A.addFile('''<?xml version="1.0" encoding="UTF-8"?>
 <!-- A random selection of elements from data.xml
      Some IDREFS (refs attribute of element pointer) do not have a corresponding id in this sample-->
 <?xml-model href="data.rnc" type="application/relax-ng-compact-syntax"?>
 <data version="3.0">
    <synsets source="dict/data.adj" xml:base="data.adj.xml"><!--10 out of 18156 elements-->
     <synset id="a00001740" type="a">
-         <lex_filenum>00</lex_filenum>
+         <lex_filenum>0<>'"&0</lex_filenum>
          <word lex_id="0">able</word>
          <pointer refs="n05200169 n05616246">Attribute</pointer>
          <pointer refs="n05616246 n05200169" source="1" target="1">Derivationally related form</pointer>
          <pointer refs="a00002098" source="1" target="1">Antonym</pointer>
-         <def>(usually followed by `to') having the necessary means or skill or know-how or authority to do something</def>
+         <def>(usually followed by `to') having the necessary means or skill or know-how or authority to do something
+wheather is> good</def>
          <example>able to swim</example>
          <example>she was able to program her computer</example>
          <example>we were at last able to buy a car</example>
@@ -267,8 +267,9 @@ text='''<?xml version="1.0" encoding="UTF-8"?>
          <pointer refs="v00002325 v00002573">Verb Group</pointer>
          <pointer refs="v00002573 v00002724 v00002942 v00003826 v00004032 v00004227 v00005041 v00006697 v00007328 v00017031">Hyponym</pointer>
          <frame f_num="2"/>
-         <frame f_num="8"/>
-         <def>draw air into, and expel out of, the lungs</def>
+         <frame f_num="8"></frame>
+
+             <def>draw air into, and expel out of, the lungs</def>
          <example>I can breathe better when the air is clean</example>
          <example>The patient is respiring</example>
       </synset>
@@ -359,32 +360,14 @@ text='''<?xml version="1.0" encoding="UTF-8"?>
          <word lex_id="0">mismarry</word>
          <pointer refs="v02488834">Hypernym</pointer>
          <frame f_num="2"/>
-         <def>marry an unsuitable partner</def>
+         <def>marry an unsuitable partner</def> 
+         
       </synset>
    </synsets>
-</data>'''
-tagregex=re.compile(r'<[^><]+>')
-
-listOfTags=tagregex.findall(text)
-noTagsstring=tagregex.sub('⇈',text)
-print(listOfTags)
-linespaceregex=re.compile(r'\n\s*')
-nolinesstring=linespaceregex.sub('',noTagsstring)
-textregex=re.compile(r'[^⇈]+')
-listOfText=textregex.findall(nolinesstring)
-print(listOfText)
-noTextstring=textregex.sub('⇊',nolinesstring)
-print(noTextstring)
-print(len(listOfTags))
-print(len(listOfText))
-print(len(noTextstring))
-
-
-
-#print(noTagsstring)
-#print(inspect.cleandoc(noTagsstring))
-#print(textwrap.dedent(noTagsstring))
-
-
-de7k="bela hdffff"
-hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+</data>''')
+A.extractlists()
+A.validateTexts()
+list=A.getListOfTexts()
+for i in range (len(list)):
+    print(list[i].finalShape)
+    print(list[i].errorvisualized)
