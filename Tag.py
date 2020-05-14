@@ -8,7 +8,7 @@ class tag:
         self.errorvisualized=''
         self.finalShape=''
         self.listOfAttributes=[]
-        self.followingComments=''
+        self.followingComment=''
     def validateTag(self):
         partitionsRegEx = re.compile(r'[^<>\s]+')
         if self.originalShape[1] == '/':
@@ -54,6 +54,8 @@ class tag:
                 partitions[i] = newAttribute
 
         return partitions
+    def validateListOfAttributes(self):
+        d=11111111111111
     def createShapes(self):
         if self.type=='closing':
             self.errorvisualized=self.originalShape
@@ -64,14 +66,21 @@ class tag:
             for i in range(len(self.listOfAttributes)):
                 attributesErrors=attributesErrors+self.listOfAttributes[i].name+'='+self.listOfAttributes[i].valueWithError
                 attributesFinal=attributesFinal+self.listOfAttributes[i].name+'='+self.listOfAttributes[i].finalShape
+                if i !=len(self.listOfAttributes)-1:
+                    attributesErrors+=' '
+                    attributesFinal = ' '
             self.errorvisualized='<'+self.name+' '+attributesErrors+'/'+'>'
             self.finalShape='<'+self.name+' '+attributesFinal+'/'+'>'
+
         elif self.type=='opening':
             attributesErrors = ''
             attributesFinal = ''
             for i in range(len(self.listOfAttributes)):
                 attributesErrors=attributesErrors+self.listOfAttributes[i].name+'='+self.listOfAttributes[i].valueWithError
                 attributesFinal=attributesFinal+self.listOfAttributes[i].name+'='+self.listOfAttributes[i].finalShape
+                if i !=len(self.listOfAttributes)-1:
+                    attributesErrors+=' '
+                    attributesFinal = ' '
             self.errorvisualized = '<' + self.name + ' ' + attributesErrors + '>'
             self.finalShape = '<' + self.name + ' ' + attributesFinal + '>'
 

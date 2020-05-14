@@ -15,6 +15,7 @@ class errors:
 class xmlFile:
     def __init__(self):
         self.file = ''
+        self.declerations=[]
         self.listOfTags = []
         self.listOfText = []
         self.listOfAll = []
@@ -32,6 +33,8 @@ class xmlFile:
         noLineSpace = lineSpaceRegex.sub('↕', noTags)
         self.listOfText = textRegEx.findall(noLineSpace)
         noText = textRegEx.sub('⇊', noLineSpace)
+        self.validateTexts()
+        self.validateTags()
         tagIndex = 0
         textIndex = 0
         for i in range(len(noText)):
@@ -51,12 +54,35 @@ class xmlFile:
 
     def validateTags(self):
         for i in range(len(self.listOfTags)):
-            newTag = tag()
             if self.listOfTags[i][1:4]!='!--'and self.listOfTags[i][1]!='?':
+                newTag = tag()
                 newTag.originalShape=self.listOfTags[i]
                 newTag.validateTag()
-            self.listOfTags[i]=newTag
+                self.listOfTags[i]=newTag
 
+    def extractDeclerations(self):
+        i=0
+        while True:
+            if type(self.listOfAll[i])==str:
+                self.declerations.append(self.listOfAll[i])
+                del self.listOfAll[i]
+                i-=1
+            else:
+                break
+            i+=1
+    def mergeComments(self):
+        for i in range(len(self.listOfAll)):
+            if i>= len(self.listOfAll):
+                break
+            if type(self.listOfAll[i])==str:
+                print(self.listOfAll[i])
+                self.listOfAll[i-1].followingComment==self.listOfAll[i]
+                del self.listOfAll[i]
+
+
+
+    def getListOfAll(self):
+        return self.listOfAll
     def getListOfTags(self):
         return self.listOfTags
     def getListOfTexts(self):

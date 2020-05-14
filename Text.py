@@ -4,6 +4,7 @@ class text:
         self.errorvisualized=''
         self.finalShape=''
         self.followingComments=''
+        self.followingComment=''
     def validateText(self):
         self.finalShape = self.originalShape
         self.errorvisualized = self.originalShape
