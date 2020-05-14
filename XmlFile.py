@@ -1,5 +1,6 @@
 from Text import text
 from Tag import tag
+from Tree import tree
 from Attribute import attribute
 import re
 
@@ -20,6 +21,9 @@ class xmlFile:
         self.listOfText = []
         self.listOfAll = []
         self.listOfErrors = []
+        self.tree=tree()
+        self.numberOfComments=0
+        self.declerationsComments=0
 
     def addFile(self, file):
         self.file = file
@@ -30,7 +34,7 @@ class xmlFile:
         textRegEx = re.compile(r'[^⇈↕]+')
         self.listOfTags = tagRegEx.findall(self.file)
         noTags = tagRegEx.sub('⇈', self.file)
-        noLineSpace = lineSpaceRegex.sub('↕', noTags)
+        noLineSpace = lineSpaceRegex.sub('↕', noTags) #to take more than 2 texts
         self.listOfText = textRegEx.findall(noLineSpace)
         noText = textRegEx.sub('⇊', noLineSpace)
         self.validateTexts()
@@ -39,18 +43,22 @@ class xmlFile:
         textIndex = 0
         for i in range(len(noText)):
             if noText[i] == '⇈':
-                self.listOfAll.append(self.listOfTags[tagIndex])
+                self.listOfAll.append(self.listOfTags[tagIndex])  #momken 23ml merge lel comments hna momken 2st3'na 3n el list el kbeera
                 tagIndex += 1
             elif noText[i] == '⇊':
-                self.listOfAll.append(self.listOfText[textIndex])
+                if type(self.listOfText[textIndex])==text:
+                    self.listOfAll.append(self.listOfText[textIndex])
                 textIndex += 1
 
     def validateTexts(self):
         for i in range(len(self.listOfText)):
-            newText=text()
-            newText.originalShape=self.listOfText[i]
-            newText.validateText()
-            self.listOfText[i] = newText
+            if self.listOfText[i].isspace()!=True:
+                #print(self.listOfText[i])
+                newText=text()
+                newText.originalShape=self.listOfText[i]
+                newText.validateText()
+                self.listOfText[i] = newText
+
 
     def validateTags(self):
         for i in range(len(self.listOfTags)):
@@ -59,11 +67,15 @@ class xmlFile:
                 newTag.originalShape=self.listOfTags[i]
                 newTag.validateTag()
                 self.listOfTags[i]=newTag
+            else :
+                self.numberOfComments+=1
+
 
     def extractDeclerations(self):
         i=0
         while True:
             if type(self.listOfAll[i])==str:
+                self.declerationsComments+=1
                 self.declerations.append(self.listOfAll[i])
                 del self.listOfAll[i]
                 i-=1
@@ -71,13 +83,37 @@ class xmlFile:
                 break
             i+=1
     def mergeComments(self):
+        comments=self.numberOfComments-self.declerationsComments
+        if comments !=0:
+            #print('comments')
+            for i in range(len(self.listOfAll)):
+               if i>= len(self.listOfAll):
+                    break
+               if type(self.listOfAll[i])==str:
+                    #print(self.listOfAll[i])
+                    self.listOfAll[i-1].followingComment==self.listOfAll[i]
+                    del self.listOfAll[i]
+
+    def createTree(self):
         for i in range(len(self.listOfAll)):
-            if i>= len(self.listOfAll):
-                break
-            if type(self.listOfAll[i])==str:
-                print(self.listOfAll[i])
-                self.listOfAll[i-1].followingComment==self.listOfAll[i]
-                del self.listOfAll[i]
+            #print(len(self.listOfAll))
+            if type(self.listOfAll[i])==text:
+                self.tree.addText(self.listOfAll[i])
+            elif type(self.listOfAll[i]) == tag:
+                if self.listOfAll[i].type=='closing':
+                    self.tree.addClosingTag(self.listOfAll[i])
+                else:
+                    self.tree.addOpenningTag(self.listOfAll[i])
+    def printTree(self):
+        self.tree.printTree()
+
+
+
+
+
+
+
+
 
 
 

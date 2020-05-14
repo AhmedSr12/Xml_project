@@ -3,7 +3,7 @@ import re
 class tag:
     def __init__(self):
         self.name=''
-        self.type=''
+        self.type='no'
         self.originalShape=''
         self.errorvisualized=''
         self.finalShape=''
@@ -12,6 +12,7 @@ class tag:
     def validateTag(self):
         partitionsRegEx = re.compile(r'[^<>\s]+')
         if self.originalShape[1] == '/':
+            self.name=self.originalShape[2:len(self.originalShape)-1]
             self.type = 'closing'
         elif self.originalShape[-2] == '/':
             self.type = 'empty'

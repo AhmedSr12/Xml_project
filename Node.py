@@ -2,7 +2,10 @@ from Tag import tag
 from Text import text
 class node:
     def __init__(self):
-        self.openingTag=tag()
-        self.text=text()
-        self.closingtag=tag()
+        self.state='empty'
+        self.openningTag=tag()
+        #self.openingTag.type='no'
+        self.listOfText=[]
+        self.closingTag=tag()
+        #self.closingtag.type='no'
         self.listOfNodes=[]
