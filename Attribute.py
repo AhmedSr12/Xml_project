@@ -4,13 +4,17 @@ class attribute:
         self.value=''
         self.valueWithError=''
         self.finalShape=''
+        self.errors=0
     def validateAttribute(self):
         self.valueWithError =self.value
         self.finalShape = self.value
         if self.valueWithError[0]!='"':
             self.valueWithError='〔ERROR6〕'+self.valueWithError
             self.finalShape = '"'+self.finalShape
+            self.errors+=1
 
         if self.valueWithError[-1]!='"':
             self.valueWithError=self.valueWithError+'〔ERROR6〕'
             self.finalShape = self.finalShape+'"'
+            self.errors+=1
+        return self.errors

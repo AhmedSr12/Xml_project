@@ -24,6 +24,7 @@ class xmlFile:
         self.tree=tree()
         self.numberOfComments=0
         self.declerationsComments=0
+        self.errors=0
 
     def addFile(self, file):
         self.file = file
@@ -56,7 +57,7 @@ class xmlFile:
                 #print(self.listOfText[i])
                 newText=text()
                 newText.originalShape=self.listOfText[i]
-                newText.validateText()
+                self.errors+=newText.validateText()
                 self.listOfText[i] = newText
 
 
@@ -65,7 +66,7 @@ class xmlFile:
             if self.listOfTags[i][1:4]!='!--'and self.listOfTags[i][1]!='?':
                 newTag = tag()
                 newTag.originalShape=self.listOfTags[i]
-                newTag.validateTag()
+                self.errors+=newTag.validateTag()
                 self.listOfTags[i]=newTag
             else :
                 self.numberOfComments+=1
@@ -104,6 +105,8 @@ class xmlFile:
                     self.tree.addClosingTag(self.listOfAll[i])
                 else:
                     self.tree.addOpenningTag(self.listOfAll[i])
+    def detectErrors(self):
+        return self.errors+self.tree.completeTree()
     def printTree(self):
         self.tree.printTree()
 

@@ -4,6 +4,7 @@ from Tag import tag
 class tree:
     def __init__(self):
         self.root=node()
+        self.errors=0
     def addOpenningSubtree(self,subTree,tag):
         if len(subTree.listOfNodes)==0  :
             newNode=node()
@@ -184,6 +185,34 @@ class tree:
                 print(subTree.closingTag.originalShape)
                 return
 
+    def completeTree(self):
+        self.completeSubTree(self.root)
+        return self.errors
+    def completeSubTree(self,subTree):
+        if subTree.openningTag.type == 'no' and subTree.closingTag.type != 'no':
+            print(1)
+            subTree.openningTag.name = subTree.closingTag.name
+            subTree.openningTag.errorvisualized = '〔ERROR9〕'
+            subTree.openningTag.finalShape = '<' + subTree.openningTag.name + '>'
+            self.errors += 1
+        elif subTree.openningTag.type != 'no' and subTree.closingTag.type == 'no':
+            print(2)
+            subTree.closingTag.name = subTree.openningTag.name
+            subTree.closingTag.errorvisualized = '〔ERROR8〕'
+            subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
+            self.errors += 1
+        elif subTree.openningTag.type != 'no' and subTree.closingTag.type != 'no':  # mismatch
+            if subTree.openningTag.name != subTree.closingTag.name:
+                print(3)
+                subTree.closingTag.name = subTree.openningTag.name
+                subTree.closingTag.errorvisualized = '〔ERROR7〕'
+                subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
+                self.errors += 1
+
+
+        if len(subTree.listOfNodes) != 0:
+            for i in range(len(subTree.listOfNodes)):
+                self.completeSubTree(subTree.listOfNodes[i])
 
 
 
@@ -195,31 +224,10 @@ class tree:
 
 
 
-        if len(subTree.listOfNodes) == 0:
-            if subTree.openningTag.type=='no'and subTree.closingTag.type=='no':#m3molha creation
-                for i in range (len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-                return
-            if subTree.openningTag.type == 'empty':
-                print(subTree.openningTag.originalShape)
-                return
-            if subTree.openningTag.type=='no':
-                print('〔ERROR7〕')
-            else:
-                print(subTree.openningTag.originalShape)
-            if subTree.listOfText!=[]:
-                for i in range (len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-            if subTree.closingTag.type=='no':
-                print('〔ERROR8〕')
-            elif subTree.closingTag.name!=subTree.openningTag.name :
-                print('〔ERROR9〕')
-            else:
-                print(subTree.closingTag.originalShape)
 
-        else:
-            for i in range (len(subTree.listOfNodes)):
-                self.printSubTree(subTree.listOfNodes[i])
+
+
+
 
 
 

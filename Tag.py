@@ -9,6 +9,7 @@ class tag:
         self.finalShape=''
         self.listOfAttributes=[]
         self.followingComment=''
+        self.errors=0
     def validateTag(self):
         partitionsRegEx = re.compile(r'[^<>\s]+')
         if self.originalShape[1] == '/':
@@ -25,6 +26,7 @@ class tag:
             self.name = partitionsList[0]
             self.listOfAttributes = self.extracAttributesList(partitionsList,'opening')
         self.createShapes()
+        return self.errors
 
     def extracAttributesList(self,partitions,type):
         del partitions[0]
@@ -51,7 +53,7 @@ class tag:
                         newAttribute.value=partitions[i].split('=')[1]
                 else:
                     newAttribute.value = partitions[i].split('=')[1]
-                newAttribute.validateAttribute()
+                self.errors+=newAttribute.validateAttribute()
                 partitions[i] = newAttribute
 
         return partitions
