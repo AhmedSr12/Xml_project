@@ -226,3 +226,89 @@ class tree:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    def json(self,nodee,level,jsontring):
+        if len(nodee.listOfNodes)!=0 or len(nodee.openningTag.listOfAttributes)!=0 or len(nodee.listOfText) != 0 :
+            if len(nodee.listOfNodes) == 0:
+                if len(nodee.listOfText) == 1 and len(nodee.openningTag.listOfAttributes) == 0:
+                    jsontring.append(level * '  ' + '"' + nodee.openningTag.finalShape + '": "' + nodee.listOfText[0].finalShape + '"')
+                if len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0 :
+                    jsontring.append(level * '  ' + '"' + nodee.openningTag.finalShape + ': { "-' +
+                                     nodee.openningTag.listOfAttributes[0].name + '": "' +
+                                     nodee.openningTag.listOfAttributes[0].finalShape + '" }')
+                if len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
+                    jsontring.append(level * '  ' + '"' + nodee.openningTag.finalShape + '": "')
+                    for i in nodee.listOfText : jsontring.append((level+1) * '  ' +i.finalShape)
+                    jsontring.append((level+1) * ' ' + '"')
+                if len(nodee.openningTag.listOfAttributes) != 1 and len(nodee.listOfText) == 0 :
+                    jsontring.append(level * '  ' + '"' + nodee.openningTag.finalShape + ': {')
+                    for i in nodee.openningTag.listOfAttributes :
+                        if i == nodee.openningTag.listOfAttributes[-1] :
+                            jsontring.append((level + 1) * '  ' + '"-' +i.name + '": "' +i.finalShape+'"')
+                            jsontring.append(level * '  ' + '}')
+                        else: jsontring.append((level + 1) * '  ' + '"-' +i.name + '": "' +i.finalShape+'",')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
