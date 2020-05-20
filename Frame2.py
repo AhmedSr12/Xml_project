@@ -2,36 +2,60 @@ from tkinter import *
 
 class frame2():
     def __init__(self,master,filePath):
-        self.Master = master
+        self.main=master
+        self.Master = Frame(master)
+        self.Master.pack(side=TOP)
         self.master_will_be_deleted = Frame(master)
         self.master_will_be_deleted.pack(side=BOTTOM)
-        self._4_buttons_master = Frame(self.Master)
+        self._4_buttons_master = Frame(self.main)
         self._4_buttons_master.pack(side=BOTTOM)
         self.path=filePath
-        self.vis_Button = Button(self.master_will_be_deleted, text=" Verify Consistency ", command=self.error, font="arial 15 italic", width=20)
+        self.vis_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.vis_Button.pack(side=BOTTOM)
 
         self.correct_Button = Button(self.master_will_be_deleted, text=" Correct Errors ", command=self.B_4_Buttons,font="arial 15 italic", width=20)
         self.correct_Button.pack(side=BOTTOM)
         self.correct_Button["state"] = "disabled"
-    def error(self):
+    def Verifyerror(self):
+        self.vis_Button["state"] = "disabled"
         self.correct_Button["state"] = "normal"
+        self.Master.pack_forget()
+        self.Master.destroy()
+        # h3ml if condition 34an a4of fe errors aslun wla la2 fn b4 buttons
+        # ha5od el error visualized fn we trg3li string mn m7mod
+        self.Master = Frame(self.main)
+        self.Master.pack(side=TOP)
+        self.show_Label("de7k bela hadf")
+
     def Errors(self):
         pass
         # new string is needed
+    def Json(self):
+        self.Master.pack_forget()
+        self.Master.destroy()
+        #m7tag string mn 3mad
+        self.Master = Frame(self.main)
+        self.Master.pack(side=TOP)
+        self.show_Label("le 3yon 3omda")
+        self.Button1.destroy()
+
     def B_4_Buttons(self):
         self.master_will_be_deleted.pack_forget()
         self.master_will_be_deleted.destroy()
-        self.Button1 = Button(self._4_buttons_master, text=" Show corrected ", command=self.Errors, font="arial 15 italic", width=20)
-        self.Button2 = Button(self._4_buttons_master, text=" Show JSON ", command=self.Errors,font="arial 15 italic", width=20)
-        self.Button3 = Button(self._4_buttons_master, text=" Show? ", command=self.Errors,font="arial 15 italic", width=20)
-        self.Button4 = Button(self._4_buttons_master, text=" Show?? ", command=self.Errors,font="arial 15 italic", width=20)
+        self.Master.pack_forget()
+        self.Master.destroy()
+        # ha5od el correct error  fn we trg3li string mn m7mod
+        self.Master = Frame(self.main)
+        self.Master.pack(side=TOP)
+        self.show_Label("de7k bela hadf klaket tany mara")
+        self.Button1 = Button(self._4_buttons_master, text=" Show JSON ", command=self.Json, font="arial 15 italic", width=20)
+        self.Button2 = Button(self._4_buttons_master, text=" Show Prettified xml ", command=self.Errors,font="arial 15 italic", width=20)
+        self.Button3 = Button(self._4_buttons_master, text=" Show De7k ", command=self.Errors,font="arial 15 italic", width=20)
         self.Button1.grid(row=0, column=1)
         self.Button2.grid(row=0, column=2)
         self.Button3.grid(row=0, column=3)
-        self.Button4.grid(row=0, column=4)
 
-    def show_Label(self):
+    def show_Label(self,contents=""):
         def myfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"), width=1250, height=800)
 
@@ -55,8 +79,6 @@ class frame2():
         myscrollbar1.pack(side="bottom", fill="x")
         canvas.pack(side="bottom")
 
-        f=open(self.path,"r")
-        contents=f.read()
         #print(contents)
         #contents="De7k bela hdff"
         self.text=Text(self.frame,width=1250, height=800)

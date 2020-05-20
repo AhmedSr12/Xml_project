@@ -30,7 +30,9 @@ class frame1:
         self.master.pack_forget()
         self.master.destroy()
         f=frame2(self.newmaster,self.File_Path)
-        f.show_Label()
+        ff = open(self.File_Path, "r")
+        contents = ff.read()
+        f.show_Label(contents)
 
 
 
