@@ -136,5 +136,17 @@ class xmlFile:
 
 
 
+    def json(self):
+        return self.tree.print_json()
+
+
+
+
+
+
+
+
+
+
 
 
