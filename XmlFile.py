@@ -88,11 +88,12 @@ class xmlFile:
         if comments !=0:
             #print('comments')
             for i in range(len(self.listOfAll)):
+                #print(i)
                if i>= len(self.listOfAll):
                     break
                if type(self.listOfAll[i])==str:
                     #print(self.listOfAll[i])
-                    self.listOfAll[i-1].followingComment==self.listOfAll[i]
+                    self.listOfAll[i-1].followingComment=self.listOfAll[i]
                     del self.listOfAll[i]
 
     def createTree(self):
