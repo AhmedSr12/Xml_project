@@ -36,7 +36,7 @@ class tree:
                 self.root.closingTag = tag
             return
         else :
-            self.root.state == 'passed'  #to change text state
+            self.root.state = 'passed'  #to change text state
             self.addOpenningSubtree(self.root,tag)
 
 
@@ -188,12 +188,12 @@ class tree:
                 return
     def printSubTreeFile(self,subTree,file):
         if subTree.openningTag.type == 'empty':
-            file.write(subTree.openningTag.originalShape+"\n")
+            file.write(subTree.openningTag.errorvisualized+"\n")
             #file.write("\n")
             return
 
         if subTree.openningTag.type!='no':
-            file.write(subTree.openningTag.originalShape+'\n'+'\t')
+            file.write(subTree.openningTag.errorvisualized+'\n'+'\t')
             #file.write("\n")
 
             if len(subTree.listOfText) != 0:
@@ -251,20 +251,20 @@ class tree:
         if subTree.openningTag.type == 'no' and subTree.closingTag.type != 'no':
             #print(1)
             subTree.openningTag.name = subTree.closingTag.name
-            subTree.openningTag.errorvisualized = '〔ERROR9〕'
+            subTree.openningTag.errorvisualized = "(ERR:Missing Openning Tag)"
             subTree.openningTag.finalShape = '<' + subTree.openningTag.name + '>'
             self.errors += 1
         elif subTree.openningTag.type != 'no' and subTree.closingTag.type == 'no':
             #print(2)
             subTree.closingTag.name = subTree.openningTag.name
-            subTree.closingTag.errorvisualized = '〔ERROR8〕'
+            subTree.closingTag.errorvisualized = "(ERR:Missing Closing Tag)"
             subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
             self.errors += 1
         elif subTree.openningTag.type != 'no' and subTree.closingTag.type != 'no':  # mismatch
             if subTree.openningTag.name != subTree.closingTag.name:
                 #print(3)
                 subTree.closingTag.name = subTree.openningTag.name
-                subTree.closingTag.errorvisualized = '〔ERROR7〕'
+                subTree.closingTag.errorvisualized = "(ERR:Not Matching Tag)"
                 subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
                 self.errors += 1
 
@@ -278,42 +278,36 @@ class tree:
         self.visualizeSubTree(self.root,file,indentation)
 
     def visualizeSubTree(self,subTree,file,indentation):
-        if subTree.openningTag.type!='no':
-            file.write(subTree.closingTag.originalShape + "\n")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        if subTree.openningTag.type!='no':  #empty or openinig  must find closing
+            file.write(indentation+subTree.openningTag.errorvisualized+subTree.openningTag.followingComment)
+            if len(subTree.listOfText)==1:
+                file.write(subTree.listOfText[0].errorvisualized+subTree.listOfText[0].followingComment)
+            elif len(subTree.listOfText)>1:
+                file.write("\n")
+                for i in range(len(subTree.listOfText)):
+                    file.write(indentation+"\t"+subTree.listOfText[i].errorvisualized+subTree.listOfText[i].followingComment)
+                    if i != len(subTree.listOfText) - 1:
+                        file.write("\n")
+            if len(subTree.listOfNodes)==0:
+                if subTree.openningTag.type!='empty':
+                    if len(subTree.listOfText)>1:
+                        file.write("\n")
+                        file.write(indentation+subTree.closingTag.errorvisualized+subTree.closingTag.followingComment)   #+'\n'??
+                    else:
+                        file.write(subTree.closingTag.errorvisualized+subTree.closingTag.followingComment)
+            else:
+                for i in range(len(subTree.listOfNodes)):
+                    if i==0:
+                        file.write("\n")
+                    self.visualizeSubTree(subTree.listOfNodes[i],file,indentation+"\t")
+                    file.write("\n") #??????
+                if subTree.openningTag.type != 'empty':
+                    file.write(indentation+subTree.closingTag.errorvisualized + subTree.closingTag.followingComment)
+        else:
+            for i in range(len(subTree.listOfText)):
+                file.write(indentation + subTree.listOfText[i].errorvisualized + subTree.listOfText[i].followingComment)
+                if i !=len(subTree.listOfText)-1:
+                    file.write("\n")
 
 
 

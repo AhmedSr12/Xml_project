@@ -1,18 +1,42 @@
 from XmlFile import xmlFile
 A=xmlFile()
-A.addFile('''  <ahmed>hhhhh</ahmed>
-</omar>
+A.addFile('''<users>
+    <user>
+        <id>1</id>
+        <name>user1</name>
+        <posts>
+            <post>
+                loren ipsum
+                tempor incididunt
+             </post>
+             <post>
+                ut enim
+                ut aliquip
+              </post>
+        </posts>
+        kkkkkk
+        kkkkkl
+        <followers>
+              <follower>
+                    <name>2</name>
+               </follower>
+               <follower>
+                     <id>4</id>
+               </follower>
+        </followers>
+
+      </user>
+</users>
+
+
+
+
+
 
 ''')
 A.extractlists()
-#A.validateTexts()
 A.extractDeclerations()
 A.mergeComments()
-list=A.getListOfTexts()
-list2=A.getListOfAll()
-print(len(list2))
-print(len(list))
-for i in range (len(list)):
-    g=1
-#    print(list[i].finalShape)
-#    print(list[i].errorvisualized)
+A.createTree()
+err=A.detectErrors()
+A.visualizeErrors()
