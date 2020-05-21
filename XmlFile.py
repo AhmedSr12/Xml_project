@@ -107,8 +107,18 @@ class xmlFile:
                     self.tree.addOpenningTag(self.listOfAll[i])
     def detectErrors(self):
         return self.errors+self.tree.completeTree()
+
+    def visualizeErrors(self):
+        f=open('errorVisualized.txt','w')
+        for i in range(len(self.declerations)):
+            f.write(self.declerations[i]+ "\n")
+        self.tree.visualizeErrors(f)
+        f.close()
     def printTree(self):
-        self.tree.printTree()
+        f = open('errorVisualized.txt', 'w')
+        f.write('self.declerations[i] '+ "\n")
+        self.tree.printTree(f)
+        f.close()
 
 
 
