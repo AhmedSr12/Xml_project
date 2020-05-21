@@ -376,11 +376,11 @@ class tree:
                     if one_node_flag == 1 :
                         s=s+' {'
                         jsontring.append(s)
-                        for k in tmp_nodes[i].openningTag.listOfAttributes :
+                        for k in nodee.openningTag.listOfAttributes :
                             jsontring.append((level + 1) * '  ' + '"-' + k.name + '": "' + k.finalShape + '",')
                         list_of_list_of_texts =[]
-                        if tmp_nodes[i].listOfText != [] : list_of_list_of_texts.append(tmp_nodes[i].listOfText)
-                        for q in tmp_nodes[i].listOfNodes :
+                        if nodee.listOfText != [] : list_of_list_of_texts.append(nodee.listOfText)
+                        for q in nodee.listOfNodes :
                             if q.openningTag.type =='no' : list_of_list_of_texts.append(q.listOfText)
                             else :
                                 jsontring.append((level + 1) * '  ' + '{')
@@ -460,11 +460,11 @@ class tree:
                     if one_node_flag == 1:
                         s = s + ' {'
                         jsontring.append(s)
-                        for k in tmp_nodes[i].openningTag.listOfAttributes:
+                        for k in nodee.openningTag.listOfAttributes:
                             jsontring.append((level + 1) * '  ' + '"-' + k.name + '": "' + k.finalShape + '",')
                         list_of_list_of_texts = []
-                        if tmp_nodes[i].listOfText != []: list_of_list_of_texts.append(tmp_nodes[i].listOfText)
-                        for q in tmp_nodes[i].listOfNodes:
+                        if nodee.listOfText != []: list_of_list_of_texts.append(nodee.listOfText)
+                        for q in nodee.listOfNodes:
                             if q.openningTag.type == 'no':
                                 list_of_list_of_texts.append(q.listOfText)
                             else:
