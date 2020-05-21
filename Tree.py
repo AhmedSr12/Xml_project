@@ -324,8 +324,8 @@ class tree:
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": "' + nodee.listOfText[0].finalShape + '",')
                 if len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0 :
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": { "-' +
-                                     nodee.openningTag.listOfAttributes[0].name + '": "' +
-                                     nodee.openningTag.listOfAttributes[0].finalShape + '" },')
+                                     nodee.openningTag.listOfAttributes[0].name + '": ' +
+                                     nodee.openningTag.listOfAttributes[0].finalShape + ' },')
                 if len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": "')
                     for i in nodee.listOfText : jsontring.append((level+1) * '  ' +i.finalShape)
@@ -334,15 +334,15 @@ class tree:
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": {')
                     for i in nodee.openningTag.listOfAttributes :
                         if i == nodee.openningTag.listOfAttributes[-1] :
-                            jsontring.append((level + 1) * '  ' + '"-' +i.name + '": "' +i.finalShape+'"')
+                            jsontring.append((level + 1) * '  ' + '"-' +i.name + '": ' +i.finalShape+'')
                             jsontring.append(level * '  ' + '},')
-                        else: jsontring.append((level + 1) * '  ' + '"-' +i.name + '": "' +i.finalShape+'",')
+                        else: jsontring.append((level + 1) * '  ' + '"-' +i.name + '": ' +i.finalShape+',')
                 else :
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": {')
                     for i in nodee.openningTag.listOfAttributes:
-                        jsontring.append((level + 1) * '  ' + '"-' + i.name + '": "' + i.finalShape + '",')
-                    jsontring.append(' "#text": "  ' +  nodee.listOfText[0].finalShape )
-                    for i in nodee.listOfText[1:]: jsontring.append((level + 1) * '  ' + i.finalShape)
+                        jsontring.append((level + 1) * '  ' + '"-' + i.name + '": ' + i.finalShape + ',')
+                    jsontring.append((level + 1) * '  ' +'"#text": "  ' +  nodee.listOfText[0].finalShape )
+                    for i in nodee.listOfText[1:]: jsontring.append((level + 1) * '   ' + i.finalShape)
                     s= jsontring[-1]+'"'
                     del jsontring[-1]
                     jsontring.append(s)
@@ -361,9 +361,9 @@ class tree:
                                 one_node_flag = 0
                                 s = s + ' ['
                                 jsontring.append(s)
-                                jsontring.append((level + 1) * '  ' + '{')
+                                #jsontring.append((level + 1) * '  ' + '{')
                                 self.repeated_json(tmp_nodes[i], level + 2, jsontring)
-                                jsontring.append((level + 1) * '  ' + '},')
+                                #jsontring.append((level + 1) * '  ' + '},')
                             jsontring.append((level + 1) * '  ' + '{')
                             self.repeated_json(tmp[j], level + 2, jsontring)
                             jsontring.append((level + 1) * '  ' + '},')
@@ -377,16 +377,16 @@ class tree:
                         s=s+' {'
                         jsontring.append(s)
                         for k in nodee.openningTag.listOfAttributes :
-                            jsontring.append((level + 1) * '  ' + '"-' + k.name + '": "' + k.finalShape + '",')
+                            jsontring.append((level + 1) * '  ' + '"-' + k.name + '": ' + k.finalShape + ',')
                         list_of_list_of_texts =[]
                         if nodee.listOfText != [] : list_of_list_of_texts.append(nodee.listOfText)
                         for q in nodee.listOfNodes :
                             if q.openningTag.type =='no' : list_of_list_of_texts.append(q.listOfText)
                             else :
-                                jsontring.append((level + 1) * '  ' + '{')
+                                #jsontring.append((level + 1) * '  ' + '{')
                                 self.json(q,level+2,jsontring)
-                                jsontring.append((level + 1) * '  ' + '},')
-                        if list_of_list_of_texts != [] : jsontring.append(' "#text": ')
+                                #jsontring.append((level + 1) * '  ' + '},')
+                        if list_of_list_of_texts != [] : jsontring.append((level + 1) * '  ' + '"#text": ')
                         for w in list_of_list_of_texts :
                             jsontring.append((level + 1) * '  ' + '"')
                             for e in w : jsontring.append((level + 1) * '  ' + e.finalShape)
@@ -407,8 +407,8 @@ class tree:
                     jsontring.append(level * '  ' + '"'  + nodee.listOfText[0].finalShape + '",')
                 if len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0:
                     jsontring.append(level * '  ' +  '"-' +
-                                     nodee.openningTag.listOfAttributes[0].name + '": "' +
-                                     nodee.openningTag.listOfAttributes[0].finalShape + '" },')
+                                     nodee.openningTag.listOfAttributes[0].name + '": ' +
+                                     nodee.openningTag.listOfAttributes[0].finalShape + ' },')
                 if len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(level * '  ' + '"')
                     for i in nodee.listOfText: jsontring.append((level + 1) * '  ' + i.finalShape)
@@ -417,16 +417,16 @@ class tree:
                     jsontring.append(level * '  ' + '{')
                     for i in nodee.openningTag.listOfAttributes:
                         if i == nodee.openningTag.listOfAttributes[-1]:
-                            jsontring.append((level + 1) * '  ' + '"-' + i.name + '": "' + i.finalShape + '"')
+                            jsontring.append((level + 1) * '  ' + '"-' + i.name + '": ' + i.finalShape + '')
                             jsontring.append(level * '  ' + '},')
                         else:
-                            jsontring.append((level + 1) * '  ' + '"-' + i.name + '": "' + i.finalShape + '",')
+                            jsontring.append((level + 1) * '  ' + '"-' + i.name + '": ' + i.finalShape + ',')
                 else:
                     jsontring.append(level * '  ' +  ': {')
                     for i in nodee.openningTag.listOfAttributes:
-                        jsontring.append((level + 1) * '  ' + '"-' + i.name + '": "' + i.finalShape + '",')
-                    jsontring.append(' "#text": "  ' + nodee.listOfText[0].finalShape)
-                    for i in nodee.listOfText[1:]: jsontring.append((level + 1) * '  ' + i.finalShape)
+                        jsontring.append((level + 1) * '  ' + '"-' + i.name + '": ' + i.finalShape + ',')
+                    jsontring.append((level + 1) * '  ' + '"#text": "  ' + nodee.listOfText[0].finalShape)
+                    for i in nodee.listOfText[1:]: jsontring.append((level + 1) * '   ' + i.finalShape)
                     s = jsontring[-1] + '"'
                     del jsontring[-1]
                     jsontring.append(s)
@@ -445,9 +445,9 @@ class tree:
                                 one_node_flag = 0
                                 s = s + ' ['
                                 jsontring.append(s)
-                                jsontring.append((level + 1) * '  ' + '{')
+                                #jsontring.append((level + 1) * '  ' + '{')
                                 self.repeated_json(tmp_nodes[i], level + 2, jsontring)
-                                jsontring.append((level + 1) * '  ' + '},')
+                                #jsontring.append((level + 1) * '  ' + '},')
                             jsontring.append((level + 1) * '  ' + '{')
                             self.repeated_json(tmp[j], level + 2, jsontring)
                             jsontring.append((level + 1) * '  ' + '},')
@@ -461,17 +461,17 @@ class tree:
                         s = s + ' {'
                         jsontring.append(s)
                         for k in nodee.openningTag.listOfAttributes:
-                            jsontring.append((level + 1) * '  ' + '"-' + k.name + '": "' + k.finalShape + '",')
+                            jsontring.append((level + 1) * '  ' + '"-' + k.name + '": ' + k.finalShape + ',')
                         list_of_list_of_texts = []
                         if nodee.listOfText != []: list_of_list_of_texts.append(nodee.listOfText)
                         for q in nodee.listOfNodes:
                             if q.openningTag.type == 'no':
                                 list_of_list_of_texts.append(q.listOfText)
                             else:
-                                jsontring.append((level + 1) * '  ' + '{')
+                                #jsontring.append((level + 1) * '  ' + '{')
                                 self.json(q, level + 2, jsontring)
-                                jsontring.append((level + 1) * '  ' + '},')
-                        if list_of_list_of_texts != []: jsontring.append(' "#text": ')
+                                #jsontring.append((level + 1) * '  ' + '},')
+                        if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
                         for w in list_of_list_of_texts:
                             jsontring.append((level + 1) * '  ' + '"')
                             for e in w: jsontring.append((level + 1) * '  ' + e.finalShape)
@@ -488,9 +488,9 @@ class tree:
         main_string=[]
         main_string.append('{')
         self.json(self.root,1,main_string)
-        s=main_string[-1][0:-1]
-        del main_string[-1]
-        main_string.append(s)
+        #s=main_string[-1][0:-1]
+        #del main_string[-1]
+        #main_string.append(s)
         main_string.append('}')
         return '\n'.join(main_string)
 
