@@ -382,7 +382,8 @@ class tree:
                         temp2_str = jsontring[-1][:-1]
                         del jsontring[-1]
                         jsontring.append(temp2_str)
-                        jsontring.append(level * '  ' + '},')
+                jsontring.append(level * '  ' + '},')
+
 
 
 
