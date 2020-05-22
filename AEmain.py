@@ -1,7 +1,7 @@
 from XmlFile import xmlFile
 A=xmlFile()
 A.addFile('''
-<root> 
+<root>  
       <synset id="a00001740" type="a">
          <lex_filenum>00</lex_filenum>
          <word lex_id="0">able</word>
@@ -23,3 +23,5 @@ A.mergeComments()
 A.createTree()
 err=A.detectErrors()
 print(A.json())
+print(A.no_of_synsets)
+print(A.word_def('hhhh'))

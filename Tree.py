@@ -466,6 +466,11 @@ class tree:
         main_string.append('}')
         return '\n'.join(main_string)
 
+    def no_synsets(self): pass
+
+    def def_of_word(self): pass
+
+
 
 
 
