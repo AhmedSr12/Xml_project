@@ -35,6 +35,19 @@ class tree:
                 self.root.state = 'close'
                 self.root.closingTag = tag
             return
+        elif self.root.state=='close'or(self.root.state=='text'and self.root.openningTag.type=='no'):#text+open only
+            rootBranch1=copy.deepcopy(self.root)
+            self.root=node()   #clear root
+            self.root.state='passed'
+            rootBranch2=node()
+            rootBranch2.state = 'open'
+            rootBranch2.openningTag=tag
+            if tag.type=='empty':
+                rootBranch2.state = 'close'
+                rootBranch2.closingTag = tag
+            self.root.listOfNodes.append( rootBranch1)
+            self.root.listOfNodes.append( rootBranch2)
+
         else :
             self.root.state = 'passed'  #to change text state
             self.addOpenningSubtree(self.root,tag)
@@ -70,6 +83,14 @@ class tree:
         if self.root.state == 'empty':#not empty but may need close
             self.root.state = 'close'
             self.root.closingTag = tag
+        elif self.root.state == 'close':
+            rootBranch1 = copy.deepcopy(self.root)
+            self.root = node()  # clear root
+            self.root.state = 'close'
+            self.root.closingTag=tag
+            self.root.listOfNodes.append(rootBranch1)
+
+
         else :
             #self.root.state == 'passed'
             self.addClosingSubtree(self.root, tag)
@@ -79,15 +100,14 @@ class tree:
             subTree.closingTag=Tag
             subTree.state='close'
             return
-        if subTree.openningTag.name == Tag.name and subTree.state == 'close':
-            newNode=node()
-            newNode.listOfText=subTree.listOfText
-            subTree.listOfText=[]
-            newNode.closingTag = subTree.closingTag
-            subTree.closingTag=Tag
-            subTree.listOfNodes.insert(0,newNode)
-            subTree.state = 'close'
-            return
+   #        newNode=node()
+    #        newNode.listOfText=subTree.listOfText
+     #       subTree.listOfText=[]
+      #      newNode.closingTag = subTree.closingTag
+       #     subTree.closingTag=Tag
+        #    subTree.listOfNodes.insert(0,newNode)
+         #   subTree.state = 'close'
+          #  return
 
 
 
@@ -247,16 +267,18 @@ class tree:
     def completeTree(self):
         self.completeSubTree(self.root)
         return self.errors
-    def completeSubTree(self,subTree):
+    def completeSubTree(self,subTree):#el root momken yb2a fady
         if subTree.openningTag.type == 'no' and subTree.closingTag.type != 'no':
             #print(1)
             subTree.openningTag.name = subTree.closingTag.name
+            subTree.openningTag.type='open'
             subTree.openningTag.errorvisualized = "(ERR:Missing Openning Tag)"
             subTree.openningTag.finalShape = '<' + subTree.openningTag.name + '>'
             self.errors += 1
         elif subTree.openningTag.type != 'no' and subTree.closingTag.type == 'no':
             #print(2)
             subTree.closingTag.name = subTree.openningTag.name
+            subTree.closingTag.type='close'
             subTree.closingTag.errorvisualized = "(ERR:Missing Closing Tag)"
             subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
             self.errors += 1
