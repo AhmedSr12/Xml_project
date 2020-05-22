@@ -66,7 +66,7 @@ class frame2():
 
     def show_Label(self,contents=""):
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=1250, height=800)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=1200, height=700)
 
         canvas = Canvas(self.Master)
         self.scroll = Frame(self.Master)
