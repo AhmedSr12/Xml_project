@@ -322,15 +322,15 @@ class tree:
             if len(nodee.listOfNodes) == 0:
                 if len(nodee.listOfText) == 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": "' + nodee.listOfText[0].finalShape + '",')
-                if len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0 :
+                elif len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0 :
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": { "-' +
                                      nodee.openningTag.listOfAttributes[0].name + '": ' +
                                      nodee.openningTag.listOfAttributes[0].finalShape + ' },')
-                if len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
+                elif len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": "')
                     for i in nodee.listOfText : jsontring.append((level+1) * '  ' +i.finalShape)
                     jsontring.append((level+1) * ' ' + '",')
-                if len(nodee.openningTag.listOfAttributes) != 1 and len(nodee.listOfText) == 0 :
+                elif len(nodee.openningTag.listOfAttributes) != 1 and len(nodee.listOfText) == 0 :
                     jsontring.append(level * '  ' + '"' + nodee.openningTag.name + '": {')
                     for i in nodee.openningTag.listOfAttributes :
                         if i == nodee.openningTag.listOfAttributes[-1] :
@@ -356,33 +356,36 @@ class tree:
                 list_of_list_of_texts = []
                 if nodee.listOfText != []: list_of_list_of_texts.append(nodee.listOfText)
                 for i in range(len(tmp_nodes)):
-                    if tmp_nodes[i].openningTag.type == 'no': list_of_list_of_texts.append(tmp_nodes[i].listOfText)
-                    tmp=tmp_nodes[i+1:]
-                    one_node_flag=1
-                    for j in range(len(tmp)) :
-                        if tmp_nodes[i].openningTag.name == tmp[j].openningTag.name :
-                            del_nodes.append(j)
-                            if one_node_flag==1 :
-                                one_node_flag = 0
-                                jsontring.append((level+1) * '  ' + '"' + tmp_nodes[i].openningTag.name + '": [')
-                                self.repeated_json(tmp_nodes[i], level + 1, jsontring)
-                            self.repeated_json(tmp[j], level + 1, jsontring)
-                    if one_node_flag == 0 :
+                    if i not in del_nodes :
+                        if tmp_nodes[i].openningTag.type == 'no': list_of_list_of_texts.append(tmp_nodes[i].listOfText)
+                        tmp = tmp_nodes[i + 1:]
+                        one_node_flag = 1
+                        for j in range(len(tmp)):
+                            if tmp_nodes[i].openningTag.name == tmp[j].openningTag.name:
+                                del_nodes.append(j + i + 1)
+                                if one_node_flag == 1:
+                                    one_node_flag = 0
+                                    jsontring.append((level + 1) * '  ' + '"' + tmp_nodes[i].openningTag.name + '": [')
+                                    self.repeated_json(tmp_nodes[i], level + 1, jsontring)
+                                self.repeated_json(tmp[j], level + 1, jsontring)
+                        if one_node_flag == 0:
+                            temp2_str = jsontring[-1][:-1]
+                            del jsontring[-1]
+                            jsontring.append(temp2_str)
+                            jsontring.append(level * '  ' + '],')
+                            # for r in del_nodes:  del tmp_nodes[r]
+                        if one_node_flag == 1: self.json(tmp_nodes[i], level + 1, jsontring)
+                        if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
+                        for w in list_of_list_of_texts:
+                            jsontring.append((level + 1) * '  ' + '"')
+                            for e in w: jsontring.append((level + 1) * '  ' + e.finalShape)
+                            jsontring.append((level + 1) * '  ' + '",')
                         temp2_str = jsontring[-1][:-1]
                         del jsontring[-1]
                         jsontring.append(temp2_str)
-                        jsontring.append(level * '  ' + '],')
-                        for r in del_nodes:  del tmp_nodes[r]
-                    if one_node_flag == 1 : self.json(tmp_nodes[i],level+1,jsontring)
-                    if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
-                    for w in list_of_list_of_texts:
-                        jsontring.append((level + 1) * '  ' + '"')
-                        for e in w: jsontring.append((level + 1) * '  ' + e.finalShape)
-                        jsontring.append((level + 1) * '  ' + '",')
-                    temp2_str = jsontring[-1][:-1]
-                    del jsontring[-1]
-                    jsontring.append(temp2_str)
-                    jsontring.append(level * '  ' + '},')
+                        jsontring.append(level * '  ' + '},')
+
+
 
     def repeated_json(self,nodee,level,jsontring):
         if len(nodee.listOfNodes) != 0 or len(nodee.openningTag.listOfAttributes) != 0 or len(nodee.listOfText) != 0:
@@ -390,15 +393,15 @@ class tree:
                 if len(nodee.listOfText) == 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(
                         level * '  ' + '"' + nodee.listOfText[0].finalShape + '",')
-                if len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0:
+                elif len(nodee.openningTag.listOfAttributes) == 1 and len(nodee.listOfText) == 0:
                     jsontring.append(level * '  '  + '{ "-' +
                                      nodee.openningTag.listOfAttributes[0].name + '": ' +
                                      nodee.openningTag.listOfAttributes[0].finalShape + ' },')
-                if len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
+                elif len(nodee.listOfText) != 1 and len(nodee.openningTag.listOfAttributes) == 0:
                     jsontring.append(level * '  ' + ': "')
                     for i in nodee.listOfText: jsontring.append((level + 1) * '  ' + i.finalShape)
                     jsontring.append((level + 1) * ' ' + '",')
-                if len(nodee.openningTag.listOfAttributes) != 1 and len(nodee.listOfText) == 0:
+                elif len(nodee.openningTag.listOfAttributes) != 1 and len(nodee.listOfText) == 0:
                     jsontring.append(level * '  ' +  ' {')
                     for i in nodee.openningTag.listOfAttributes:
                         if i == nodee.openningTag.listOfAttributes[-1]:
@@ -425,33 +428,35 @@ class tree:
                 list_of_list_of_texts = []
                 if nodee.listOfText != []: list_of_list_of_texts.append(nodee.listOfText)
                 for i in range(len(tmp_nodes)):
-                    if tmp_nodes[i].openningTag.type == 'no': list_of_list_of_texts.append(tmp_nodes[i].listOfText)
-                    tmp = tmp_nodes[i + 1:]
-                    one_node_flag = 1
-                    for j in range(len(tmp)):
-                        if tmp_nodes[i].openningTag.name == tmp[j].openningTag.name:
-                            del_nodes.append(j)
-                            if one_node_flag == 1:
-                                one_node_flag = 0
-                                jsontring.append((level + 1) * '  ' + '"' + tmp_nodes[i].openningTag.name + '": [')
-                                self.repeated_json(tmp_nodes[i], level + 1, jsontring)
-                            self.repeated_json(tmp[j], level + 1, jsontring)
-                    if one_node_flag == 0:
+                    if i not in del_nodes:
+                        if tmp_nodes[i].openningTag.type == 'no': list_of_list_of_texts.append(tmp_nodes[i].listOfText)
+                        tmp = tmp_nodes[i + 1:]
+                        one_node_flag = 1
+                        for j in range(len(tmp)):
+                            if tmp_nodes[i].openningTag.name == tmp[j].openningTag.name:
+                                del_nodes.append(j + i + 1)
+                                if one_node_flag == 1:
+                                    one_node_flag = 0
+                                    jsontring.append((level + 1) * '  ' + '"' + tmp_nodes[i].openningTag.name + '": [')
+                                    self.repeated_json(tmp_nodes[i], level + 1, jsontring)
+                                self.repeated_json(tmp[j], level + 1, jsontring)
+                        if one_node_flag == 0:
+                            temp2_str = jsontring[-1][:-1]
+                            del jsontring[-1]
+                            jsontring.append(temp2_str)
+                            jsontring.append(level * '  ' + '],')
+                            # for r in del_nodes:  del tmp_nodes[r]
+                        if one_node_flag == 1: self.json(tmp_nodes[i], level + 1, jsontring)
+                        if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
+                        for w in list_of_list_of_texts:
+                            jsontring.append((level + 1) * '  ' + '"')
+                            for e in w: jsontring.append((level + 1) * '  ' + e.finalShape)
+                            jsontring.append((level + 1) * '  ' + '",')
                         temp2_str = jsontring[-1][:-1]
                         del jsontring[-1]
                         jsontring.append(temp2_str)
-                        jsontring.append(level * '  ' + '],')
-                        for r in del_nodes:  del tmp_nodes[r]
-                    if one_node_flag == 1: self.json(tmp_nodes[i], level + 1, jsontring)
-                    if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
-                    for w in list_of_list_of_texts:
-                        jsontring.append((level + 1) * '  ' + '"')
-                        for e in w: jsontring.append((level + 1) * '  ' + e.finalShape)
-                        jsontring.append((level + 1) * '  ' + '",')
-                    temp2_str = jsontring[-1][:-1]
-                    del jsontring[-1]
-                    jsontring.append(temp2_str)
-                    jsontring.append(level * '  ' + '},')
+                        jsontring.append(level * '  ' + '},')
+
 
     def print_json(self):
         main_string=[]
