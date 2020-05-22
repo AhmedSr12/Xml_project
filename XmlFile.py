@@ -150,6 +150,13 @@ class xmlFile:
     def json(self):
         return self.tree.print_json()
 
+    def no_of_synsets(self):
+        return self.tree.no_synsets()
+
+    def word_def(self,s):
+        return self.tree.def_of_word(s)
+
+
 
 
 

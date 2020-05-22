@@ -2,8 +2,11 @@ from tkinter import *
 from  tkinter import  filedialog
 from  tkinter import ttk
 from Frame2 import frame2
+from XmlFile import xmlFile
+
 
 class frame1:
+
     def __init__(self,master):
         self.newmaster=master
         self.master = Frame(master)
@@ -29,10 +32,11 @@ class frame1:
         self.File_Path=self.filedialog()
         self.master.pack_forget()
         self.master.destroy()
-        f=frame2(self.newmaster,self.File_Path)
         ff = open(self.File_Path, "r")
         contents = ff.read()
+        f=frame2(self.newmaster,self.File_Path,contents)
         f.show_Label(contents)
+
 
 
 

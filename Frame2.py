@@ -1,7 +1,9 @@
 from tkinter import *
+from XmlFile import xmlFile
 
 class frame2():
-    def __init__(self,master,filePath):
+    def __init__(self,master,filePath,contents):
+        self.contents=contents
         self.main=master
         self.Master = Frame(master)
         self.Master.pack(side=TOP)
@@ -10,12 +12,20 @@ class frame2():
         self._4_buttons_master = Frame(self.main)
         self._4_buttons_master.pack(side=BOTTOM)
         self.path=filePath
+        self.A = xmlFile()
+        self.A.addFile(contents)
+        self.A.extractlists()
+        self.A.extractDeclerations()
+        self.A.mergeComments()
+        self.A.createTree()
+        err =  self.A.detectErrors()
         self.vis_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.vis_Button.pack(side=BOTTOM)
 
         self.correct_Button = Button(self.master_will_be_deleted, text=" Correct Errors ", command=self.B_4_Buttons,font="arial 15 italic", width=20)
         self.correct_Button.pack(side=BOTTOM)
         self.correct_Button["state"] = "disabled"
+
     def Verifyerror(self):
         self.vis_Button["state"] = "disabled"
         self.correct_Button["state"] = "normal"
@@ -26,17 +36,36 @@ class frame2():
         self.Master = Frame(self.main)
         self.Master.pack(side=TOP)
         self.show_Label("de7k bela hadf")
+    def delet(self):
+        input = self.entry.get()
+        output = self.A.word_def(input)
+        root = Tk()
+        number_of_synsets = Label(root, text=output, font="arial 14 italic")
+        number_of_synsets.pack()
+    def get_def(self):
+        self.entry=Entry(self._4_buttons_master, font="arial 14 italic")
+        label=Label(self._4_buttons_master, text="Enter Tag", font="arial 14 italic")
+        self.Buttonn = Button(self._4_buttons_master, text="OK", command=self.delet, font="arial 15 italic",width=10)
+        self.Buttonn.grid(row=2, column=5)
+        self.entry.grid(row=1, column=4)
+        label.grid(row=1, column=3)
 
-    def Errors(self):
+
+
+    def show_prett(self):
         pass
+    def number_synsets(self):
+        root=Tk()
+        string="Number Of Synsets equal : "+ str(self.A.no_of_synsets())
+        number_of_synsets = Label(root, text=string, font="arial 14 italic")
+        number_of_synsets.pack()
         # new string is needed
     def Json(self):
         self.Master.pack_forget()
         self.Master.destroy()
-        #m7tag string mn 3mad
         self.Master = Frame(self.main)
         self.Master.pack(side=TOP)
-        self.show_Label("le 3yon 3omda")
+        self.show_Label(self.A.json())
         self.Button1.destroy()
 
     def B_4_Buttons(self):
@@ -49,15 +78,17 @@ class frame2():
         self.Master.pack(side=TOP)
         self.show_Label("de7k bela hadf klaket tany mara")
         self.Button1 = Button(self._4_buttons_master, text=" Show JSON ", command=self.Json, font="arial 15 italic", width=20)
-        self.Button2 = Button(self._4_buttons_master, text=" Show Prettified xml ", command=self.Errors,font="arial 15 italic", width=20)
-        self.Button3 = Button(self._4_buttons_master, text=" Show De7k ", command=self.Errors,font="arial 15 italic", width=20)
+        self.Button2 = Button(self._4_buttons_master, text=" Show Prettified xml ", command=self.show_prett,font="arial 15 italic", width=20)
+        self.Button3 = Button(self._4_buttons_master, text=" Get Number Of Synsets ", command=self.number_synsets,font="arial 15 italic", width=20)
+        self.Button4 = Button(self._4_buttons_master, text=" Get Definition ", command=self.get_def,font="arial 15 italic", width=20)
         self.Button1.grid(row=0, column=1)
         self.Button2.grid(row=0, column=2)
         self.Button3.grid(row=0, column=3)
+        self.Button4.grid(row=0, column=4)
 
     def show_Label(self,contents=""):
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=1250, height=800)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=1200, height=600)
 
         canvas = Canvas(self.Master)
         self.scroll = Frame(self.Master)
