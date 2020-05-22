@@ -466,9 +466,35 @@ class tree:
         main_string.append('}')
         return '\n'.join(main_string)
 
-    def no_synsets(self): pass
+    def no_synsets(self):
+        n=0
+        if self.root.openningTag.name == 'synset' : n=1
+        return str(self.synsets(self.root,n))
 
-    def def_of_word(self,word): pass
+
+
+    def synsets(self,x,n):
+        for i in x.listOfNodes :
+            if i.openningTag.name == 'synset' : n=n+1
+            self.synsets(i,n)
+        return n
+
+    def def_word(self,x,word):
+        for i in x.listOfNodes :
+            if i.listOfText !=[] :
+                if i.openningTag.name == 'word' and i.listOfText[0].finalShape == word:
+                    for j in x.listOfNodes:
+                        if j.openningTag.name == 'def':
+                            r=[]
+                            for k in j.listOfText : r.append(k.finalShape)
+                            return '\n'.join(r)
+            s=self.def_word(i,word)
+            if s != None : return s
+
+    def def_of_word(self,s):
+        return self.def_word(self.root,s)
+
+
 
 
 

@@ -56,7 +56,7 @@ class frame2():
         pass
     def number_synsets(self):
         root=Tk()
-        string="Number Of Synsets equal : "+ str(self.A.no_of_synsets)
+        string="Number Of Synsets equal : "+ str(self.A.no_of_synsets())
         number_of_synsets = Label(root, text=string, font="arial 14 italic")
         number_of_synsets.pack()
         # new string is needed
