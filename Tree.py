@@ -468,7 +468,7 @@ class tree:
 
     def no_synsets(self): pass
 
-    def def_of_word(self): pass
+    def def_of_word(self,word): pass
 
 
 
