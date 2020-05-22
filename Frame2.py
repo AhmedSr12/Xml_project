@@ -1,7 +1,9 @@
 from tkinter import *
+from XmlFile import xmlFile
 
 class frame2():
-    def __init__(self,master,filePath):
+    def __init__(self,master,filePath,contents):
+        self.contents=contents
         self.main=master
         self.Master = Frame(master)
         self.Master.pack(side=TOP)
@@ -10,12 +12,20 @@ class frame2():
         self._4_buttons_master = Frame(self.main)
         self._4_buttons_master.pack(side=BOTTOM)
         self.path=filePath
+        self.A = xmlFile()
+        self.A.addFile(contents)
+        self.A.extractlists()
+        self.A.extractDeclerations()
+        self.A.mergeComments()
+        self.A.createTree()
+        err =  self.A.detectErrors()
         self.vis_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.vis_Button.pack(side=BOTTOM)
 
         self.correct_Button = Button(self.master_will_be_deleted, text=" Correct Errors ", command=self.B_4_Buttons,font="arial 15 italic", width=20)
         self.correct_Button.pack(side=BOTTOM)
         self.correct_Button["state"] = "disabled"
+
     def Verifyerror(self):
         self.vis_Button["state"] = "disabled"
         self.correct_Button["state"] = "normal"
@@ -33,10 +43,9 @@ class frame2():
     def Json(self):
         self.Master.pack_forget()
         self.Master.destroy()
-        #m7tag string mn 3mad
         self.Master = Frame(self.main)
         self.Master.pack(side=TOP)
-        self.show_Label("le 3yon 3omda")
+        self.show_Label(self.A.json())
         self.Button1.destroy()
 
     def B_4_Buttons(self):
