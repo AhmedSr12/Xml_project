@@ -366,14 +366,13 @@ class tree:
                                 if one_node_flag == 1:
                                     one_node_flag = 0
                                     jsontring.append((level + 1) * '  ' + '"' + tmp_nodes[i].openningTag.name + '": [')
-                                    self.repeated_json(tmp_nodes[i], level + 1, jsontring)
+                                    self.repeated_json(tmp_nodes[i], level + 1  , jsontring)
                                 self.repeated_json(tmp[j], level + 1, jsontring)
                         if one_node_flag == 0:
                             temp2_str = jsontring[-1][:-1]
                             del jsontring[-1]
                             jsontring.append(temp2_str)
-                            jsontring.append(level * '  ' + '],')
-                            # for r in del_nodes:  del tmp_nodes[r]
+                            jsontring.append((level + 1) * '  ' + '],')
                         if one_node_flag == 1: self.json(tmp_nodes[i], level + 1, jsontring)
                         if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
                         for w in list_of_list_of_texts:
@@ -444,8 +443,7 @@ class tree:
                             temp2_str = jsontring[-1][:-1]
                             del jsontring[-1]
                             jsontring.append(temp2_str)
-                            jsontring.append(level * '  ' + '],')
-                            # for r in del_nodes:  del tmp_nodes[r]
+                            jsontring.append((level + 1) * '  ' + '],')
                         if one_node_flag == 1: self.json(tmp_nodes[i], level + 1, jsontring)
                         if list_of_list_of_texts != []: jsontring.append((level + 1) * '  ' + '"#text": ')
                         for w in list_of_list_of_texts:
@@ -462,6 +460,9 @@ class tree:
         main_string=[]
         main_string.append('{')
         self.json(self.root,1,main_string)
+        temp2_str = main_string[-1][:-1]
+        del main_string[-1]
+        main_string.append(temp2_str)
         main_string.append('}')
         return '\n'.join(main_string)
 
