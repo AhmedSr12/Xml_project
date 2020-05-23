@@ -119,7 +119,7 @@ class xmlFile:
         f = open('prettifying.txt', 'w')
         for i in range(len(self.declerations)):
             f.write(self.declerations[i] + "\n")
-        self.tree.visualizeErrors(f)
+        self.tree.prettifying(f)
         f.close()
 
     def printTree(self):

@@ -356,7 +356,7 @@ class tree:
                 for i in range(len(subTree.listOfNodes)):
                     if i==0:
                         file.write("\n")
-                    self.visualizeSubTree(subTree.listOfNodes[i],file,indentation+"\t")
+                    self.prettifyingSubTree(subTree.listOfNodes[i],file,indentation+"\t")
                     file.write("\n") #??????
                 if subTree.openningTag.type != 'empty':
                     file.write(indentation+subTree.closingTag.finalShape + subTree.closingTag.followingComment)

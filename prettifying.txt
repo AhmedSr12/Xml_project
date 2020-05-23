@@ -1,26 +1,3 @@
-<users>
-	<user>
-		<id>1</id>
-		<name>user1</name>
-		<posts>
-			<post>
-				loren ipsum
-				tempor incididunt
-			</post>
-			<post>
-				ut enim
-				ut aliquip
-			</post>
-		</posts>
-		kkkkkk
-		kkkkkl
-		<followers>
-			<follower>
-				<name>2</name>
-			</follower>
-			<follower>
-				<id>4</id>
-			</follower>
-		</followers>
-	</user>
-</users>
+<synsets source="dict/data.adj" xml:base="data.adj.xml"><!--10 out of 18156 elements-->
+	<def>(usually followed by `to&apos) having the necessary means or skill or know-how or authority to do something</def>
+</synsets>
