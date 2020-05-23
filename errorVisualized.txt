@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A random selection of elements from data.xml
+     Some IDREFS (refs attribute of element pointer) do not have a corresponding id in this sample-->
+<?xml-model href="data.rnc" type="application/relax-ng-compact-syntax"?>
+<users>hhhhhhhh
+	<user>
+		<id>1</id>
+		<name ref="55">user1</name>
+		<posts>
+			<post>
+				loren ipsum
+				tempor incididunt
+			</post>
+			<post>
+				ut enim
+				ut aliquip
+			</post>
+		</posts>
+		kkkkkk
+		kkkkkl
+		<followers>
+			<follower>
+				<name>2</name>
+			</follower>
+			<follower>
+				<id>4</id>
+			</follower>
+		</followers>
+	</user>
+</users>
