@@ -104,12 +104,14 @@ class frame2():
         self.Button2 = Button(self._4_buttons_master, text=" Visualize Error ", command=self.VisualizeError,font="arial 15 italic", width=20)
         self.Button3 = Button(self._4_buttons_master, text=" Get Number Of Synsets ", command=self.number_synsets,font="arial 15 italic", width=20)
         self.Button4 = Button(self._4_buttons_master, text=" Get Definition ", command=self.get_def,font="arial 15 italic", width=20)
-        self.Button1.grid(row=0, column=1)
-        if self.err !=0:
-            self.Button2.grid(row=0, column=5)
+        self.Button1.grid(row=0, column=5)
+        self.Button2.grid(row=0, column=1)
         self.Button3.grid(row=0, column=3)
-        self.Button4.grid(row=0, column=2)
-        self.prett_Button.grid(row=0, column=4)
+        self.Button4.grid(row=0, column=4)
+        self.prett_Button.grid(row=0, column=2)
+        if self.err==0:
+            self.Button2["state"] = "disabled"
+
 
     def show_Label(self,contents=""):
         def myfunction(event):
