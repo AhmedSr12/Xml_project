@@ -330,6 +330,41 @@ class tree:
                 file.write(indentation + subTree.listOfText[i].errorvisualized + subTree.listOfText[i].followingComment)
                 if i !=len(subTree.listOfText)-1:
                     file.write("\n")
+    def prettifying(self,file):
+        indentation=''
+        self.prettifyingSubTree(self.root,file,indentation)
+
+    def prettifyingSubTree(self,subTree,file,indentation):
+        if subTree.openningTag.type!='no':  #empty or openinig  must find closing
+            file.write(indentation+subTree.openningTag.finalShape+subTree.openningTag.followingComment)
+            if len(subTree.listOfText)==1:
+                file.write(subTree.listOfText[0].finalShape+subTree.listOfText[0].followingComment)
+            elif len(subTree.listOfText)>1:
+                file.write("\n")
+                for i in range(len(subTree.listOfText)):
+                    file.write(indentation+"\t"+subTree.listOfText[i].finalShape+subTree.listOfText[i].followingComment)
+                    if i != len(subTree.listOfText) - 1:
+                        file.write("\n")
+            if len(subTree.listOfNodes)==0:
+                if subTree.openningTag.type!='empty':
+                    if len(subTree.listOfText)>1:
+                        file.write("\n")
+                        file.write(indentation+subTree.closingTag.finalShape+subTree.closingTag.followingComment)   #+'\n'??
+                    else:
+                        file.write(subTree.closingTag.finalShape+subTree.closingTag.followingComment)
+            else:
+                for i in range(len(subTree.listOfNodes)):
+                    if i==0:
+                        file.write("\n")
+                    self.visualizeSubTree(subTree.listOfNodes[i],file,indentation+"\t")
+                    file.write("\n") #??????
+                if subTree.openningTag.type != 'empty':
+                    file.write(indentation+subTree.closingTag.finalShape + subTree.closingTag.followingComment)
+        else:
+            for i in range(len(subTree.listOfText)):
+                file.write(indentation + subTree.listOfText[i].finalShape + subTree.listOfText[i].followingComment)
+                if i !=len(subTree.listOfText)-1:
+                    file.write("\n")
 
 
 

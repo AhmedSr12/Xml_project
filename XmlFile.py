@@ -115,6 +115,13 @@ class xmlFile:
             f.write(self.declerations[i]+ "\n")
         self.tree.visualizeErrors(f)
         f.close()
+    def prettifying(self):
+        f = open('prettifying.txt', 'w')
+        for i in range(len(self.declerations)):
+            f.write(self.declerations[i] + "\n")
+        self.tree.visualizeErrors(f)
+        f.close()
+
     def printTree(self):
         f = open('errorVisualized.txt', 'w')
         f.write('self.declerations[i] '+ "\n")
