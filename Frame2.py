@@ -53,7 +53,7 @@ class frame2():
         self.Master.destroy()
         self.Master = Frame(self.main)
         self.Master.pack(side=TOP)
-        self.show_Label(self.A.visualizeErrors())
+        self.show_Label(self.A.visualizeErrors(),1)
     def delet(self):
         input = self.entry.get()
         output = self.A.word_def(input)
@@ -113,7 +113,7 @@ class frame2():
             self.Button2["state"] = "disabled"
 
 
-    def show_Label(self,contents=""):
+    def show_Label(self,contents="",type=0):
         def myfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"), width=1200, height=600)
 
@@ -141,7 +141,22 @@ class frame2():
         #contents="De7k bela hdff"
         self.text=Text(self.frame,width=1250, height=800)
         self.text.insert(INSERT, contents)
-        #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT)
+        if type==1:
+            fff = open('errorVisualized.txt', 'r')
+            listed=fff.readlines()
+            for i in range (len(listed)):
+                line=listed[i]
+                for j in range (len (line)):
+                    if j<=len (line)-6:
+                        if line[j]=="(":
+                            if (line[j+1]=="E") and (line[j+2]=="R") and (line[j+3]=="R") and (line[j+4]==":") :
+                                start=str(i+1)+"."+str(j)
+                                end=str(i+1)+"."+str(j+5)
+                                self.text.tag_add('error', start, end)
+                                self.text.tag_config('error',background="yellow", foreground="black")
+                                break
+            fff.close()
+        #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT) (ERR:
         self.text.pack(side=LEFT)
 
 
