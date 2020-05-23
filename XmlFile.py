@@ -115,12 +115,22 @@ class xmlFile:
             f.write(self.declerations[i]+ "\n")
         self.tree.visualizeErrors(f)
         f.close()
+        f = open('errorVisualized.txt', 'r')
+        string = f.read()
+        f.close()
+        return string
     def prettifying(self):
         f = open('prettifying.txt', 'w')
         for i in range(len(self.declerations)):
             f.write(self.declerations[i] + "\n")
         self.tree.prettifying(f)
         f.close()
+        f=open('prettifying.txt', 'r')
+        string=f.read()
+        f.close()
+        return string
+
+
 
     def printTree(self):
         f = open('errorVisualized.txt', 'w')

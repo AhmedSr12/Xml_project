@@ -34,7 +34,9 @@ class frame1:
         self.master.destroy()
         ff = open(self.File_Path, "r")
         contents = ff.read()
+
         f=frame2(self.newmaster,self.File_Path,contents)
+
         f.show_Label(contents)
 
 
