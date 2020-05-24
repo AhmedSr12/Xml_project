@@ -130,7 +130,7 @@ class xmlFile:
         f.close()
         return string
 
-s="test"
+
 
     def printTree(self):
         f = open('errorVisualized.txt', 'w')
