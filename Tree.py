@@ -587,6 +587,8 @@ class tree:
 
     def hyper_of_word(self, word):
         self.hyper(self.root, word)
+    def test(self):
+        pass
 
 
 
