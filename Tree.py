@@ -558,6 +558,7 @@ class tree:
     def def_of_word(self,s):
         return self.def_word(self.root,s)
 
+
     def hyper(self, x, word):
         for i in x.listOfNodes:
             if i.listOfText != []:
@@ -575,7 +576,9 @@ class tree:
                                         return refs
                                     else:
                                         return ' '.join(result)
-            self.hyper(i, word)
+            r= self.hyper(i, word)
+            if r!= None : return r
+
 
     def search_in_tree(self, x, id, result):
         for i in x.listOfNodes:
@@ -586,17 +589,7 @@ class tree:
             self.search_in_tree(i, id, result)
 
     def hyper_of_word(self, word):
-        self.hyper(self.root, word)
-
-
-
-
-
-
-
-
-
-
+        return self.hyper(self.root, word)
 
 
 

@@ -139,7 +139,7 @@ class xmlFile:
         f.close()
 
     def Hypernyms_word(self,string):
-        return self.tree.hyper_of_word()
+        return self.tree.hyper_of_word(string)
 
 
     def getListOfAll(self):
