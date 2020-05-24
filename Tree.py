@@ -584,7 +584,7 @@ class tree:
         for i in x.listOfNodes:
             for j in i.openningTag.listOfAttributes:
                 if j.name == 'id' and j.finalShape[1:-1] == id:
-                    for k in x.listOfNodes:
+                    for k in i.listOfNodes:
                         if k.openningTag.name == 'word': result.append(k.listOfText[0].finalShape)
             self.search_in_tree(i, id, result)
 
