@@ -558,6 +558,39 @@ class tree:
     def def_of_word(self,s):
         return self.def_word(self.root,s)
 
+    def hyper(self, x, word):
+        for i in x.listOfNodes:
+            if i.listOfText != []:
+                if i.openningTag.name == 'word' and i.listOfText[0].finalShape == word:
+                    for j in x.listOfNodes:
+                        if j.openningTag.name == 'pointer' and j.listOfText[0].finalShape == 'Hypernym':
+                            for k in j.openningTag.listOfAttributes:
+                                if k.name == 'refs':
+                                    refs = k.finalShape[1:-1]
+                                    ids = refs.split()
+                                    result = []
+                                    for l in ids:
+                                        self.search_in_tree(self.root, l, result)
+                                    if result == []:
+                                        return refs
+                                    else:
+                                        return ' '.join(result)
+            self.hyper(i, word)
+
+    def search_in_tree(self, x, id, result):
+        for i in x.listOfNodes:
+            for j in i.openningTag.listOfAttributes:
+                if j.name == 'id' and j.finalShape[1:-1] == id:
+                    for k in x.listOfNodes:
+                        if k.openningTag.name == 'word': result.append(k.listOfText[0].finalShape)
+            self.search_in_tree(i, id, result)
+
+    def hyper_of_word(self, word):
+        self.hyper(self.root, word)
+
+
+
+
 
 
 

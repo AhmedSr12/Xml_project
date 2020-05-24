@@ -114,6 +114,8 @@ class frame2():
 
 
     def show_Label(self,contents="",type=0):
+        fff = open('errorVisualized.txt', 'r')
+        listed = fff.readlines()
         def myfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"), width=1200, height=600)
 
@@ -139,11 +141,10 @@ class frame2():
 
         #print(contents)
         #contents="De7k bela hdff"
-        self.text=Text(self.frame,width=1250, height=800)
+
+        self.text=Text(self.frame,width=1200,height=600)
         self.text.insert(INSERT, contents)
         if type==1:
-            fff = open('errorVisualized.txt', 'r')
-            listed=fff.readlines()
             for i in range (len(listed)):
                 line=listed[i]
                 for j in range (len (line)):
@@ -155,7 +156,7 @@ class frame2():
                                 self.text.tag_add('error', start, end)
                                 self.text.tag_config('error',background="yellow", foreground="black")
                                 break
-            fff.close()
+        fff.close()
         #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT) (ERR:
         self.text.pack(side=LEFT)
 

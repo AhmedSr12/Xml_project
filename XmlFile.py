@@ -138,14 +138,8 @@ class xmlFile:
         self.tree.printTree(f)
         f.close()
 
-
-
-
-
-
-
-
-
+    def Hypernyms_word(self,string):
+        return self.tree.hyper_of_word()
 
 
     def getListOfAll(self):
