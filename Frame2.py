@@ -65,6 +65,7 @@ class frame2():
             self.Button3["state"] = "normal"
             self.Button4["state"] = "normal"
             self.Button5["state"] = "normal"
+            self.Button6["state"] = "normal"
             self.prett_Button["state"] = "normal"
             output = self.A.word_def(input)
             root = Tk()
@@ -85,6 +86,7 @@ class frame2():
             self.Button3["state"] = "normal"
             self.Button4["state"] = "normal"
             self.Button5["state"] = "normal"
+            self.Button6["state"] = "normal"
             self.prett_Button["state"] = "normal"
             output = self.A.Hypernyms_word(input)
             root = Tk()
@@ -100,6 +102,7 @@ class frame2():
         self.Button3["state"] = "disabled"
         self.Button4["state"] = "disabled"
         self.Button5["state"] = "disabled"
+        self.Button6["state"] = "disabled"
         self.prett_Button["state"] = "disabled"
         self.entry=Entry(self._4_buttons_master, font="arial 14 italic")
         self.label123=Label(self._4_buttons_master, text="Enter Tag", font="arial 14 italic")
@@ -113,6 +116,7 @@ class frame2():
         self.Button3["state"] = "disabled"
         self.Button4["state"] = "disabled"
         self.Button5["state"] = "disabled"
+        self.Button6["state"] = "disabled"
         self.prett_Button["state"] = "disabled"
         self.entry=Entry(self._4_buttons_master, font="arial 14 italic")
         self.label123=Label(self._4_buttons_master, text="Enter Query Word", font="arial 14 italic")
@@ -150,11 +154,8 @@ class frame2():
     def B_4_Buttons(self):
         self.master_will_be_deleted.pack_forget()
         self.master_will_be_deleted.destroy()
-        self.Master.pack_forget()
-        self.Master.destroy()
-        self.Master = Frame(self.main)
-        self.Master.pack(side=TOP)
-        self.show_Label(self.contents)
+        self.save = Frame(self.main)
+        self.save.pack(side=BOTTOM)
         self.prett_Button = Button(self._4_buttons_master, text=" Show Prettified Xml ", command=self.show_prett,font="arial 15 italic", width=15)
         self.Button1 = Button(self._4_buttons_master, text=" Show JSON ", command=self.Json, font="arial 15 italic", width=10)
         self.Button2 = Button(self._4_buttons_master, text=" Visualize Error ", command=self.VisualizeError,font="arial 15 italic", width=15)
@@ -162,12 +163,14 @@ class frame2():
         self.Button4 = Button(self._4_buttons_master, text=" Get Definition ", command=self.get_def,font="arial 15 italic", width=10)
         self.Button5 = Button(self._4_buttons_master, text=" Get Hypernyms ", command=self.get_hyper,font="arial 15 italic", width=15)
         self.Button6 = Button(self._4_buttons_master, text=" Show Minified Xml ", command=self.show_minified,font="arial 15 italic", width=20)
+        self.Button7 = Button(self.save, text=" Save File ", command=self.show_minified,font="arial 15 italic", width=10)
         self.Button6.grid(row=0, column=7)
         self.Button5.grid(row=0, column=6)
         self.Button1.grid(row=0, column=5)
         self.Button2.grid(row=0, column=1)
         self.Button3.grid(row=0, column=3)
         self.Button4.grid(row=0, column=4)
+        self.Button7.pack(side=BOTTOM)
         self.prett_Button.grid(row=0, column=2)
         if self.err==0:
             self.Button2["state"] = "disabled"
