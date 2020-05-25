@@ -538,10 +538,14 @@ class tree:
 
 
     def synsets(self,x,n):
+
         for i in x.listOfNodes :
-            if i.openningTag.name == 'synset' : n=n+1
-            self.synsets(i,n)
+            if i.openningTag.name == 'synset' : n= n+1
+            n=self.synsets(i,n)
         return n
+
+
+
 
     def def_word(self,x,word):
         for i in x.listOfNodes :
