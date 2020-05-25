@@ -286,7 +286,7 @@ class tree:
                 return
 
     def completeTree(self):
-        if self.root.state=='passed':
+        if self.root.openningTag.type=='no' and self.root.closingTag.type=='no':
             self.root.openningTag.name='root'
             self.root.closingTag.name='root'
             self.root.openningTag.type = 'open'
