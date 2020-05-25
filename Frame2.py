@@ -144,7 +144,8 @@ class frame2():
                 f.write(self.string_json)
             if (self.v1.get() == 1):
                 f.write(self.string_pret)
-            # na2es hna minified
+            if(self.v3.get() == 1):
+                f.write(self.minified)
         self.Button7["state"] = "normal"
         self.enable()
         self.c1.destroy()
@@ -191,7 +192,8 @@ class frame2():
             self.Master.destroy()
             self.Master = Frame(self.main)
             self.Master.pack(side=TOP)
-            self.show_Label(self.A.prettifying())
+            self.minified=self.A.minifying()
+            self.show_Label(self.minified)
 
     def show_prett(self):
         self.Master.pack_forget()
@@ -215,7 +217,7 @@ class frame2():
     def B_4_Buttons(self):
         self.master_will_be_deleted.pack_forget()
         self.master_will_be_deleted.destroy()
-        self.prett_Button = Button(self._4_buttons_master, text=" Show Prettified Xml ", command=self.show_prett,font="arial 15 italic", width=15)
+        self.prett_Button = Button(self._4_buttons_master, text=" Solve Errors & Prettifing ", command=self.show_prett,font="arial 15 italic", width=20)
         self.Button1 = Button(self._4_buttons_master, text=" Show JSON ", command=self.Json, font="arial 15 italic", width=10)
         self.Button2 = Button(self._4_buttons_master, text=" Visualize Error ", command=self.VisualizeError,font="arial 15 italic", width=15)
         self.Button3 = Button(self._4_buttons_master, text=" Get Number Of Synsets ", command=self.number_synsets,font="arial 15 italic", width=20)
@@ -223,12 +225,12 @@ class frame2():
         self.Button5 = Button(self._4_buttons_master, text=" Get Hypernyms ", command=self.get_hyper,font="arial 15 italic", width=15)
         self.Button6 = Button(self._4_buttons_master, text=" Show Minified Xml ", command=self.show_minified,font="arial 15 italic", width=20)
         self.Button7 = Button(self.save, text=" Save File ", command=self.save_as,font="arial 15 italic", width=10)
-        self.Button6.grid(row=0, column=7)
-        self.Button5.grid(row=0, column=6)
-        self.Button1.grid(row=0, column=5)
+        self.Button6.grid(row=0, column=4)
+        self.Button5.grid(row=0, column=7)
+        self.Button1.grid(row=0, column=3)
         self.Button2.grid(row=0, column=1)
-        self.Button3.grid(row=0, column=3)
-        self.Button4.grid(row=0, column=4)
+        self.Button3.grid(row=0, column=5)
+        self.Button4.grid(row=0, column=6)
         self.Button7.pack(side=BOTTOM)
         self.prett_Button.grid(row=0, column=2)
         if self.err==0:
@@ -239,7 +241,7 @@ class frame2():
         fff = open('errorVisualized.txt', 'r')
         listed = fff.readlines()
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=1200, height=600)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=1000, height=600)
 
         canvas = Canvas(self.Master)
         self.scroll = Frame(self.Master)
@@ -264,7 +266,7 @@ class frame2():
         #print(contents)
         #contents="De7k bela hdff"
 
-        self.text=Text(self.frame,width=1200,height=600)
+        self.text=Text(self.frame,width=5000,height=600)
         self.text.insert(INSERT, contents)
         if type==1:
             for i in range (len(listed)):
