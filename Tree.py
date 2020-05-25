@@ -366,7 +366,31 @@ class tree:
                 if i !=len(subTree.listOfText)-1:
                     file.write("\n")
 
+    def minifying(self, file):
+        self.minifyingSubTree(self.root, file)
 
+    def minifyingSubTree(self, subTree, file):
+        file.write(subTree.openningTag.finalShape + subTree.openningTag.followingComment)
+        for i in range(len(subTree.listOfText)):
+            file.write(subTree.listOfText[i].finalShape + subTree.listOfText[i].followingComment)
+            if i != len(subTree.listOfText) - 1:
+                file.write(' ')
+        if len(subTree.listOfNodes) == 0:
+            if subTree.openningTag.type != 'empty':
+                file.write(subTree.closingTag.finalShape + subTree.closingTag.followingComment)
+        if len(subTree.listOfNodes) > 0:
+            if subTree == self.root:
+                file.write("\n")
+                for i in range(len(subTree.listOfNodes)):
+                    file.write("\t")
+                    self.minifyingSubTree(subTree.listOfNodes[i], file)
+                    file.write("\n")
+            else:
+                for i in range(len(subTree.listOfNodes)):
+                    self.minifyingSubTree(subTree.listOfNodes[i], file)
+
+            if subTree.openningTag.type != 'empty':
+                file.write(subTree.closingTag.finalShape + subTree.closingTag.followingComment)
 
 
 

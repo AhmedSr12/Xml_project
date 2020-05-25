@@ -130,7 +130,16 @@ class xmlFile:
         f.close()
         return string
 
-
+    def minifying(self):
+        f = open('minifying.txt', 'w')
+        for i in range(len(self.declerations)):
+            f.write(self.declerations[i] + "\n")
+        self.tree.minifying(f)
+        f.close()
+        f = open('minifying.txt', 'r')
+        string = f.read()
+        f.close()
+        return string
 
     def printTree(self):
         f = open('errorVisualized.txt', 'w')

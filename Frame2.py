@@ -95,7 +95,7 @@ class frame2():
     def get_def(self):
         self.disable()
         self.entry=Entry(self._4_buttons_master, font="arial 14 italic")
-        self.label123=Label(self._4_buttons_master, text="Enter Tag", font="arial 14 italic")
+        self.label123=Label(self._4_buttons_master, text="Enter Query Word", font="arial 14 italic")
         self.Buttonn = Button(self._4_buttons_master, text="OK", command=self.delet, font="arial 15 italic",width=10)
         self.Buttonn.grid(row=2, column=5)
         self.entry.grid(row=1, column=4)
