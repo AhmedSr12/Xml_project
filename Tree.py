@@ -397,7 +397,6 @@ class tree:
 
 
 
-
     def json(self,nodee,level,jsontring):
         if len(nodee.listOfNodes)!=0 or len(nodee.openningTag.listOfAttributes)!=0 or len(nodee.listOfText) != 0 :
             if len(nodee.listOfNodes) == 0:
