@@ -286,6 +286,16 @@ class tree:
                 return
 
     def completeTree(self):
+        if self.root.state=='passed':
+            self.root.openningTag.name='root'
+            self.root.closingTag.name='root'
+            self.root.openningTag.type = 'open'
+            self.root.closingTag.type = 'close'
+            self.root.openningTag.errorvisualized = "(ERR:Missing Root)"
+            self.root.openningTag.finalShape = '<' + self.root.openningTag.name + '>'
+            self.root.closingTag.errorvisualized = "(ERR:Missing Root)"
+            self.root.closingTag.finalShape = '<' + '/'+ self.root.openningTag.name + '>'
+
         self.completeSubTree(self.root)
         return self.errors
     def completeSubTree(self,subTree):#el root momken yb2a fady
