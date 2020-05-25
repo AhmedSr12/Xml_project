@@ -26,18 +26,21 @@ class frame1:
         f = frame2(self.newmaster, self.File_Path)
         f.show_Label()
     def filedialog(self):
-        self.filename=filedialog.askopenfilename(initialdir="/",title="Select A File",filetype=(("xml","*.xml"),("ALL","*.*"),("txt","*.txt")))
+        self.filename=filedialog.askopenfilename(title="Select A File",filetype=(("xml","*.xml"),("ALL","*.*"),("txt","*.txt")))
+
         return self.filename
     def browse(self):
+
         self.File_Path=self.filedialog()
-        self.master.pack_forget()
-        self.master.destroy()
-        ff = open(self.File_Path, "r")
-        contents = ff.read()
+        if self.File_Path!="":
+            self.master.pack_forget()
+            self.master.destroy()
+            ff = open(self.File_Path, "r")
+            contents = ff.read()
 
-        f=frame2(self.newmaster,self.File_Path,contents)
+            f=frame2(self.newmaster,self.File_Path,contents)
 
-        f.show_Label(contents)
+            f.show_Label(contents)
 
 
 
