@@ -4,7 +4,7 @@
 <?xml-model href="data.rnc" type="application/relax-ng-compact-syntax"?>
 <users>
 	<user>
-		<id>1(ERR:Missing Closing Tag)
+		<id>1</id>
 		<name ref="55">user1</name>
 		<posts>
 			<post>
@@ -12,17 +12,18 @@
 				tempor incididunt
 			</post>
 			<post>
-				ut enim
-				ut aliquip
+				<hhhh/>
 			</post>
 		</posts>
+		kkkkkk
+		kkkkkl
 		<followers>
 			<follower>
-				<name>2(ERR:Not Matching Tag)
+				<name>2</name>
 			</follower>
 			<follower>
 				<id>4</id>
 			</follower>
-		(ERR:Missing Closing Tag)
+		</followers>
 	</user>
 </users>
