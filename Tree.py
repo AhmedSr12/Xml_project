@@ -295,6 +295,7 @@ class tree:
             self.root.openningTag.finalShape = '<' + self.root.openningTag.name + '>'
             self.root.closingTag.errorvisualized = "(ERR:Missing Root)"
             self.root.closingTag.finalShape = '<' + '/'+ self.root.openningTag.name + '>'
+            self.errors += 1
 
         self.completeSubTree(self.root)
         return self.errors

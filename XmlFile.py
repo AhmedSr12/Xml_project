@@ -21,7 +21,7 @@ class xmlFile:
         self.listOfText = []
         self.listOfAll = []
         self.listOfErrors = []
-        self.tree=tree()
+        self.xmlTree=tree()
         self.numberOfComments=0
         self.declerationsComments=0
         self.errors=0
@@ -97,23 +97,26 @@ class xmlFile:
                     del self.listOfAll[i]
 
     def createTree(self):
+        self.extractlists()
+        self.extractDeclerations()
+        self.mergeComments()
         for i in range(len(self.listOfAll)):
             #print(len(self.listOfAll))
             if type(self.listOfAll[i])==text:
-                self.tree.addText(self.listOfAll[i])
+                self.xmlTree.addText(self.listOfAll[i])
             elif type(self.listOfAll[i]) == tag:
                 if self.listOfAll[i].type=='closing':
-                    self.tree.addClosingTag(self.listOfAll[i])
+                    self.xmlTree.addClosingTag(self.listOfAll[i])
                 else:
-                    self.tree.addOpenningTag(self.listOfAll[i])
+                    self.xmlTree.addOpenningTag(self.listOfAll[i])
     def detectErrors(self):
-        return self.errors+self.tree.completeTree()
+        return self.errors+self.xmlTree.completeTree()
 
     def visualizeErrors(self):
         f=open('errorVisualized.txt','w')
         for i in range(len(self.declerations)):
             f.write(self.declerations[i]+ "\n")
-        self.tree.visualizeErrors(f)
+        self.xmlTree.visualizeErrors(f)
         f.close()
         f = open('errorVisualized.txt', 'r')
         string = f.read()
@@ -123,7 +126,7 @@ class xmlFile:
         f = open('prettifying.txt', 'w')
         for i in range(len(self.declerations)):
             f.write(self.declerations[i] + "\n")
-        self.tree.prettifying(f)
+        self.xmlTree.prettifying(f)
         f.close()
         f=open('prettifying.txt', 'r')
         string=f.read()
@@ -134,7 +137,7 @@ class xmlFile:
         f = open('minifying.txt', 'w')
         for i in range(len(self.declerations)):
             f.write(self.declerations[i] + "\n")
-        self.tree.minifying(f)
+        self.xmlTree.minifying(f)
         f.close()
         f = open('minifying.txt', 'r')
         string = f.read()
@@ -144,11 +147,11 @@ class xmlFile:
     def printTree(self):
         f = open('errorVisualized.txt', 'w')
         f.write('self.declerations[i] '+ "\n")
-        self.tree.printTree(f)
+        self.xmlTree.printTree(f)
         f.close()
 
     def Hypernyms_word(self,string):
-        return self.tree.hyper_of_word(string)
+        return self.xmlTree.hyper_of_word(string)
 
 
     def getListOfAll(self):
@@ -167,13 +170,13 @@ class xmlFile:
 
 
     def json(self):
-        return self.tree.print_json()
+        return self.xmlTree.print_json()
 
     def no_of_synsets(self):
-        return self.tree.no_synsets()
+        return self.xmlTree.no_synsets()
 
     def word_def(self,s):
-        return self.tree.def_of_word(s)
+        return self.xmlTree.def_of_word(s)
 
 
 
