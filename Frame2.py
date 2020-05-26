@@ -18,9 +18,6 @@ class frame2():
         self.path=filePath
         self.A = xmlFile()
         self.A.addFile(contents)
-        self.A.extractlists()
-        self.A.extractDeclerations()
-        self.A.mergeComments()
         self.string_json=""
         self.string_pret=""
         self.A.createTree()
