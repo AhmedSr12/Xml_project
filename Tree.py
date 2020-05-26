@@ -93,13 +93,23 @@ class tree:
 
         else :
             #self.root.state == 'passed'
-            self.addClosingSubtree(self.root, tag)
+            self.addClosingSubtree(self.root, tag,0)
 
-    def addClosingSubtree(self,subTree,Tag):
-        if subTree.openningTag.name == Tag.name and subTree.state!='close' :
-            subTree.closingTag=Tag
-            subTree.state='close'
-            return
+    def addClosingSubtree(self,subTree,Tag,founflag):
+       if subTree.openningTag.name == Tag.name and subTree.state!='close' :
+           if len(subTree.listOfNodes) == 0 :
+               founflag=0
+           else:
+               if subTree.listOfNodes[-1].state == 'close' and subTree.state != 'close':
+                   founflag = 0
+               else:
+                   founflag = 1
+
+
+
+          #  subTree.closingTag=Tag
+          #  subTree.state='close'
+          #  return
    #        newNode=node()
     #        newNode.listOfText=subTree.listOfText
      #       subTree.listOfText=[]
@@ -111,31 +121,42 @@ class tree:
 
 
 
-        if len(subTree.listOfNodes) == 0 and subTree.state!='close':#if passed so has children
-            subTree.state = 'close'
-            subTree.closingTag=Tag
-            return
-        if len(subTree.listOfNodes) == 0 : #lazem? #Bb Bc
-            newNode = node()
-            newNode.state = 'close'
-            newNode.openningTag=subTree.openningTag
-            subTree.openningTag=tag()
-            newNode.listOfText = subTree.listOfText
-            subTree.listOfText = []
-            newNode.closingTag = subTree.closingTag
-            subTree.closingTag = Tag
+       if len(subTree.listOfNodes) == 0 and subTree.state!='close':#if passed so has children#lazem tany and??
+           if(founflag==0):
+               subTree.state = 'close'
+               subTree.closingTag=Tag
+               return
+           else:
+               subTree.state = 'close'# momken ykon text////
+               self.addClosingSubtree(self.root, Tag,0)
+               return
+
+       # if len(subTree.listOfNodes) == 0 : #lazem? #Bb Bc#lazem??#2na m4 hawsl lnode m2fola
+       #     newNode = node()
+       #     newNode.state = 'close'
+       #     newNode.openningTag=subTree.openningTag
+       #     subTree.openningTag=tag()
+       #     newNode.listOfText = subTree.listOfText
+       #     subTree.listOfText = []
+       #     newNode.closingTag = subTree.closingTag
+       #     subTree.closingTag = Tag
 
 
-            subTree.listOfNodes.append(newNode)
-            return
-        if len(subTree.listOfNodes) != 0: #Cc
+       #     subTree.listOfNodes.append(newNode)
+       #     return
+       if len(subTree.listOfNodes) != 0: #Cc
             if subTree.listOfNodes[-1].state=='close' and subTree.state!='close':
-                subTree.state = 'close'
-                subTree.closingTag = Tag
-                return
+                if (founflag == 0):
+                   subTree.state = 'close'
+                   subTree.closingTag = Tag
+                   return
+                else:
+                    subTree.state = 'close'  # momken ykon text////
+                    self.addClosingSubtree(self.root, Tag, 0)
+                    return
 
 
-        self.addClosingSubtree(subTree.listOfNodes[-1], Tag)
+       self.addClosingSubtree(subTree.listOfNodes[-1], Tag,founflag)
 
 
     def printTree(self,file):
@@ -265,6 +286,16 @@ class tree:
                 return
 
     def completeTree(self):
+        if self.root.openningTag.type=='no' and self.root.closingTag.type=='no':
+            self.root.openningTag.name='root'
+            self.root.closingTag.name='root'
+            self.root.openningTag.type = 'open'
+            self.root.closingTag.type = 'close'
+            self.root.openningTag.errorvisualized = "(ERR:Missing Root)"
+            self.root.openningTag.finalShape = '<' + self.root.openningTag.name + '>'
+            self.root.closingTag.errorvisualized = "(ERR:Missing Root)"
+            self.root.closingTag.finalShape = '<' + '/'+ self.root.openningTag.name + '>'
+
         self.completeSubTree(self.root)
         return self.errors
     def completeSubTree(self,subTree):#el root momken yb2a fady
