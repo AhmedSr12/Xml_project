@@ -1,10 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- A random selection of elements from data.xml
-     Some IDREFS (refs attribute of element pointer) do not have a corresponding id in this sample-->
-<?xml-model href="data.rnc" type="application/relax-ng-compact-syntax"?>
-<root>
-	<synsets source="dict/data.adj" xml:base="data.adj.xml"><!--10 out of 18156 elements--></synsets>
-	<synsets source="dict/data.adv" xml:base="data.adv.xml"><!--10 out of 3621 elements--></synsets>
-	<synsets source="dict/data.noun" xml:base="data.noun.xml"><!--10 out of 82115 elements--></synsets>
-	<synsets source="dict/data.verb" xml:base="data.verb.xml"><!--10 out of 13767 elements--></synsets>
-</root>
+<users>
+	<user>
+		<id>1</id>
+		<name>iser1</name>
+		<posts>
+			<post>
+				lorem ipsum dolor sit amet consectetuer asdister asutryo
+				tempor incident ut tyu et dolre
+			</post>
+			<post>
+				lorem ipsum dolor sit amet consectetuer asdister asutryo
+				tempor incident ut tyu et dolre
+			</post>
+		</posts>
+		<followers>
+			<follower>
+				<name>2</name>
+			</follower>
+			<follower>
+				<id>4</id>
+			</follower>
+		</followers>
+	</user>
+</users>
