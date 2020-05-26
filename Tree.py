@@ -36,7 +36,12 @@ class tree:
                 self.root.closingTag = tag
             return
         elif self.root.state=='close'or(self.root.state=='text'and self.root.openningTag.type=='no'):#text+open only
-            rootBranch1=copy.deepcopy(self.root)
+            rootBranch1=node()
+            rootBranch1.state='close'
+            rootBranch1.openningTag= self.root.openningTag
+            rootBranch1.listOfText= self.root.listOfText
+            rootBranch1.closingTag=self.root.closingTag
+            rootBranch1.listOfNodes=self.root.listOfNodes
             self.root=node()   #clear root
             self.root.state='passed'
             rootBranch2=node()
@@ -84,7 +89,12 @@ class tree:
             self.root.state = 'close'
             self.root.closingTag = tag
         elif self.root.state == 'close':
-            rootBranch1 = copy.deepcopy(self.root)
+            rootBranch1 = node()
+            rootBranch1.state = 'close'
+            rootBranch1.openningTag = self.root.openningTag
+            rootBranch1.listOfText = self.root.listOfText
+            rootBranch1.closingTag = self.root.closingTag
+            rootBranch1.listOfNodes = self.root.listOfNodes
             self.root = node()  # clear root
             self.root.state = 'close'
             self.root.closingTag=tag

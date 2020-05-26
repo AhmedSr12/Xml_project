@@ -1,20 +1,3 @@
 (ERR:Missing Openning Tag)
-	<users>
-		<posts>
-			<id>1(ERR:Not Matching Tag)
-			(ERR:Missing Openning Tag)iser1</name>
-			<high>
-				<post>
-					hohohohoh
-					heheheheheh
-				(ERR:Missing Closing Tag)
-			(ERR:Missing Closing Tag)
-		</posts>
-		<follower>
-			<name>2(ERR:Not Matching Tag)
-		</follower>
-		<follower>
-			<id>4</id>
-		</follower>
-	(ERR:Not Matching Tag)
-</users>
+	<ali>hhhhhh</ali>
+</ahmed>
