@@ -183,9 +183,6 @@ class frame2():
         self.c2.pack(side=BOTTOM)
         self.c3.pack(side=BOTTOM)
 
-
-
-
     def show_minified(self):
             # fe function na2sa
             self.Master.pack_forget()
@@ -236,7 +233,6 @@ class frame2():
         if self.err==0:
             self.Button2["state"] = "disabled"
 
-
     def show_Label(self,contents="",type=0):
         fff = open('errorVisualized.txt', 'r')
         listed = fff.readlines()
@@ -283,7 +279,4 @@ class frame2():
         fff.close()
         #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT) (ERR:
         self.text.pack(side=LEFT)
-
-
-
 

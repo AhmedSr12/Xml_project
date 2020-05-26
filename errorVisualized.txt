@@ -1,28 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- A random selection of elements from data.xml
-     Some IDREFS (refs attribute of element pointer) do not have a corresponding id in this sample-->
-<?xml-model href="data.rnc" type="application/relax-ng-compact-syntax"?>
-<users>
-	<user>
-		<id>1(ERR:Missing Closing Tag)
-		<name ref="55">user1</name>
+(ERR:Missing Openning Tag)
+	<users>
+		<user>
+			<id>1</id>
+			<name>iser1</name>
+			<posts>
+				<post>
+					hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+					hhhhhhhhhhh555555555555555
+				</post>
+				<post>
+					hohohohoh
+					heheheheheh
+				</post>
+			</posts>
+			<followers>
+				<follower>
+					<name>2</name>
+				</follower>
+				<follower>
+					<id>4</id>
+				</follower>
+			</followers>
+		</user>
+		<id>1</id>
+		<name>iser1</name>
 		<posts>
 			<post>
-				loren ipsum
-				tempor incididunt
+				hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+				hhhhhhhhhhh555555555555555
 			</post>
 			<post>
-				ut enim
-				ut aliquip
+				hohohohoh
+				heheheheheh
 			</post>
+			<followers>
+				<follower>
+					<name>2</name>
+					<follower>
+						<id>4</id>
+					(ERR:Missing Closing Tag)
+				</follower>
+			(ERR:Not Matching Tag)
+		(ERR:Not Matching Tag)
+		<id>1(ERR:Not Matching Tag)
+		(ERR:Missing Openning Tag)iser1</name>
+		<posts>
+			<post>
+				hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+				hhhhhhhhhhh555555555555555
+			</post>
+			<post>
+				hohohohoh
+				heheheheheh
+			(ERR:Missing Closing Tag)
 		</posts>
-		<followers>
-			<follower>
-				<name>2(ERR:Not Matching Tag)
-			</follower>
-			<follower>
-				<id>4</id>
-			</follower>
-		(ERR:Missing Closing Tag)
-	</user>
+	(ERR:Not Matching Tag)
+	<followers>
+		<follower>
+			<name>2(ERR:Not Matching Tag)
+		</follower>
+		<follower>
+			<id>4</id>
+		</follower>
+	</followers>
 </users>
