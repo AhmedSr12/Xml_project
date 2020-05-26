@@ -1,7 +1,6 @@
 from Node import node
 from Text import text
 from Tag import tag
-import copy
 class tree:
     def __init__(self):
         self.root=node()
