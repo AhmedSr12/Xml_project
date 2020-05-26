@@ -182,12 +182,12 @@ class frame2():
 
     def show_minified(self):
             # fe function na2sa
-            self.Master.pack_forget()
-            self.Master.destroy()
-            self.Master = Frame(self.main)
-            self.Master.pack(side=TOP)
-            self.minified=self.A.minifying()
-            self.show_Label(self.minified)
+        self.Master.pack_forget()
+        self.Master.destroy()
+        self.Master = Frame(self.main)
+        self.Master.pack(side=TOP)
+        self.minified=self.A.minifying()
+        self.show_Label(self.minified)
 
     def show_prett(self):
         self.Master.pack_forget()

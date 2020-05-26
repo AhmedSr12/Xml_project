@@ -96,7 +96,7 @@ class tree:
             self.addClosingSubtree(self.root, tag,0)
 
     def addClosingSubtree(self,subTree,Tag,founflag):
-       if subTree.openningTag.name == Tag.name and subTree.state!='close' :
+        if subTree.openningTag.name == Tag.name and subTree.state!='close' :
            if len(subTree.listOfNodes) == 0 :
                founflag=0
            else:
@@ -110,18 +110,18 @@ class tree:
           #  subTree.closingTag=Tag
           #  subTree.state='close'
           #  return
-   #        newNode=node()
-    #        newNode.listOfText=subTree.listOfText
-     #       subTree.listOfText=[]
-      #      newNode.closingTag = subTree.closingTag
-       #     subTree.closingTag=Tag
+        #        newNode=node()
+        #        newNode.listOfText=subTree.listOfText
+        #       subTree.listOfText=[]
+        #      newNode.closingTag = subTree.closingTag
+        #     subTree.closingTag=Tag
         #    subTree.listOfNodes.insert(0,newNode)
          #   subTree.state = 'close'
           #  return
 
 
 
-       if len(subTree.listOfNodes) == 0 and subTree.state!='close':#if passed so has children#lazem tany and??
+        if len(subTree.listOfNodes) == 0 and subTree.state!='close':#if passed so has children#lazem tany and??
            if(founflag==0):
                subTree.state = 'close'
                subTree.closingTag=Tag
@@ -131,20 +131,20 @@ class tree:
                self.addClosingSubtree(self.root, Tag,0)
                return
 
-       # if len(subTree.listOfNodes) == 0 : #lazem? #Bb Bc#lazem??#2na m4 hawsl lnode m2fola
-       #     newNode = node()
-       #     newNode.state = 'close'
-       #     newNode.openningTag=subTree.openningTag
-       #     subTree.openningTag=tag()
-       #     newNode.listOfText = subTree.listOfText
-       #     subTree.listOfText = []
-       #     newNode.closingTag = subTree.closingTag
-       #     subTree.closingTag = Tag
+        # if len(subTree.listOfNodes) == 0 : #lazem? #Bb Bc#lazem??#2na m4 hawsl lnode m2fola
+        #     newNode = node()
+        #     newNode.state = 'close'
+        #     newNode.openningTag=subTree.openningTag
+        #     subTree.openningTag=tag()
+        #     newNode.listOfText = subTree.listOfText
+        #     subTree.listOfText = []
+        #     newNode.closingTag = subTree.closingTag
+        #     subTree.closingTag = Tag
 
 
-       #     subTree.listOfNodes.append(newNode)
-       #     return
-       if len(subTree.listOfNodes) != 0: #Cc
+        #     subTree.listOfNodes.append(newNode)
+        #     return
+        if len(subTree.listOfNodes) != 0: #Cc
             if subTree.listOfNodes[-1].state=='close' and subTree.state!='close':
                 if (founflag == 0):
                    subTree.state = 'close'
@@ -156,7 +156,7 @@ class tree:
                     return
 
 
-       self.addClosingSubtree(subTree.listOfNodes[-1], Tag,founflag)
+        self.addClosingSubtree(subTree.listOfNodes[-1], Tag,founflag)
 
 
     def printTree(self,file):

@@ -1,20 +1,24 @@
-(ERR:Missing Openning Tag)
-	<users>
+<users>
+	<user>
+		<id>1(ERR:Missing Closing Tag)
+		<name>iser1</name>
 		<posts>
-			<id>1(ERR:Not Matching Tag)
-			(ERR:Missing Openning Tag)iser1</name>
-			<high>
-				<post>
-					hohohohoh
-					heheheheheh
-				(ERR:Missing Closing Tag)
-			(ERR:Missing Closing Tag)
+			<post>
+				lorem ipsum dolor sit amet consectetuer asdister asutryo
+				tempor incident ut tyu et dolre
+			</post>
+			<post>
+				lorem ipsum dolor sit amet consectetuer asdister asutryo
+				tempor incident ut tyu et dolre
+			</post>
 		</posts>
-		<follower>
-			<name>2(ERR:Not Matching Tag)
-		</follower>
-		<follower>
-			<id>4</id>
-		</follower>
-	(ERR:Not Matching Tag)
+		<followers>
+			<follower>
+				<name>2(ERR:Not Matching Tag)
+			</follower>
+			<follower>
+				<id>4</id>
+			</follower>
+		(ERR:Missing Closing Tag)
+	</user>
 </users>
