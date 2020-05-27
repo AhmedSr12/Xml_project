@@ -27,6 +27,9 @@ class frame2():
         self.err =  self.A.detectErrors()
         self.DetectError_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.DetectError_Button.pack(side=BOTTOM)
+        self.string="Error Supported : \n1) Missing Root\n2) Missing Openning Tag\n3) Missing Closing Tag\n4) Not Matching Tag\n5) Using ( < , > , & , ' , \" ) in the text\n6) Attribute Value Isn't Quoted Properly"
+        self.Errors=Label(self.master_will_be_deleted,text= self.string, font="arial 15 italic")
+        self.Errors.pack(side=BOTTOM)
 
 
     def Verifyerror(self):
@@ -259,9 +262,12 @@ class frame2():
                     if j<=len (line)-6:
                         if line[j]=="(":
                             if (line[j+1]=="E") and (line[j+2]=="R") and (line[j+3]=="R") and (line[j+4]==":") :
-                                start=str(i+1)+"."+str(j)
-                                end=str(i+1)+"."+str(j+5)
-                                self.text.tag_add('error', start, end)
+                                self.start=str(i+1)+"."+str(j)
+                                for k in range(len(line))[j:]:
+                                    if line[k]==")":
+                                        self.end = str(i + 1) + "." + str(k+1)
+                                        break
+                                self.text.tag_add('error', self.start, self.end)
                                 self.text.tag_config('error',background="yellow", foreground="black")
                                 break
         fff.close()

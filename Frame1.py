@@ -23,8 +23,10 @@ class frame1:
         self.File_Path = self.path_entry.get()
         self.master.pack_forget()
         self.master.destroy()
-        f = frame2(self.newmaster, self.File_Path)
-        f.show_Label()
+        ff = open(self.File_Path, "r")
+        contents = ff.read()
+        self.f = frame2(self.newmaster, self.File_Path, contents)
+        self.f.show_Label(contents)
     def filedialog(self):
         self.filename=filedialog.askopenfilename(title="Select A File",filetype=(("xml","*.xml"),("ALL","*.*"),("txt","*.txt")))
 
@@ -37,10 +39,8 @@ class frame1:
             self.master.destroy()
             ff = open(self.File_Path, "r")
             contents = ff.read()
-
-            f=frame2(self.newmaster,self.File_Path,contents)
-
-            f.show_Label(contents)
+            self.f=frame2(self.newmaster,self.File_Path,contents)
+            self.f.show_Label(contents)
 
 
 
