@@ -28,10 +28,6 @@ class frame2():
         self.DetectError_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.DetectError_Button.pack(side=BOTTOM)
 
-        #self.correct_Button = Button(self.master_will_be_deleted, text=" Correct Errors ", command=self.B_4_Buttons,font="arial 15 italic", width=20)
-        #self.prett_Button = Button(self.master_will_be_deleted, text=" Show Prettified Xml ", command=self.show_prett,font="arial 15 italic", width=20)
-        #self.correct_Button.pack(side=BOTTOM)
-        #self.correct_Button["state"] = "disabled"
 
     def Verifyerror(self):
         self.DetectError_Button.destroy()
@@ -50,8 +46,6 @@ class frame2():
             string="Number of Detected Errors Equals :"+str(self.err)
             tkinter.messagebox.showinfo("ERRORS DETECTED", string)
             self.B_4_Buttons()
-            #self.prett_Button.pack(side=TOP)
-            #self.visualize_Button.pack(side=BOTTOM)
 
     def VisualizeError(self):
         self.Master.pack_forget()
@@ -181,7 +175,7 @@ class frame2():
         self.c3.pack(side=BOTTOM)
 
     def show_minified(self):
-            # fe function na2sa
+
         self.Master.pack_forget()
         self.Master.destroy()
         self.Master = Frame(self.main)
@@ -206,7 +200,6 @@ class frame2():
         self.Master.pack(side=TOP)
         self.string_json=self.A.json()
         self.show_Label(self.string_json)
-        #self.Button1.destroy()
 
     def B_4_Buttons(self):
         self.master_will_be_deleted.pack_forget()
@@ -256,8 +249,6 @@ class frame2():
         myscrollbar1.pack(side="bottom", fill="x")
         canvas.pack(side="bottom")
 
-        #print(contents)
-        #contents="De7k bela hdff"
 
         self.text=Text(self.frame,width=5000,height=600)
         self.text.insert(INSERT, contents)
@@ -274,6 +265,5 @@ class frame2():
                                 self.text.tag_config('error',background="yellow", foreground="black")
                                 break
         fff.close()
-        #self.text=Text(self.frame, text=contents,  relief="solid",font="arial 14 italic",justify=LEFT) (ERR:
-        self.text.pack(side=LEFT)
 
+        self.text.pack(side=LEFT)
