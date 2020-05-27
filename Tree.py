@@ -1,10 +1,10 @@
 from Node import node
-from Text import text
-from Tag import tag
+
 class tree:
     def __init__(self):
         self.root=node()
         self.errors=0
+
     def addOpenningSubtree(self,subTree,tag):
         if len(subTree.listOfNodes)==0  :
             newNode=node()
@@ -15,7 +15,7 @@ class tree:
                 newNode.closingTag = tag
             subTree.listOfNodes.append(newNode)
             return
-        if  subTree.listOfNodes[-1].state=='text' or subTree.listOfNodes[-1].state=='close' : #lazem
+        if  subTree.listOfNodes[-1].state=='text' or subTree.listOfNodes[-1].state=='close' :
             newNode = node()
             newNode.state='open'
             newNode.openningTag = tag
@@ -27,21 +27,21 @@ class tree:
         self.addOpenningSubtree(subTree.listOfNodes[-1],tag)
 
     def addOpenningTag(self,tag):
-        if self.root.state=='empty':   #root is empty
+        if self.root.state=='empty':
             self.root.state = 'open'
             self.root.openningTag=tag
             if tag.type=='empty':
                 self.root.state = 'close'
                 self.root.closingTag = tag
             return
-        elif self.root.state=='close'or(self.root.state=='text'and self.root.openningTag.type=='no'):#text+open only
+        elif self.root.state=='close'or(self.root.state=='text'and self.root.openningTag.type=='no'):
             rootBranch1=node()
             rootBranch1.state='close'
             rootBranch1.openningTag= self.root.openningTag
             rootBranch1.listOfText= self.root.listOfText
             rootBranch1.closingTag=self.root.closingTag
             rootBranch1.listOfNodes=self.root.listOfNodes
-            self.root=node()   #clear root
+            self.root=node()
             self.root.state='passed'
             rootBranch2=node()
             rootBranch2.state = 'open'
@@ -51,12 +51,9 @@ class tree:
                 rootBranch2.closingTag = tag
             self.root.listOfNodes.append( rootBranch1)
             self.root.listOfNodes.append( rootBranch2)
-
         else :
-            self.root.state = 'passed'  #to change text state
+            self.root.state = 'passed'
             self.addOpenningSubtree(self.root,tag)
-
-
 
     def addTextSubtree(self,subTree,text):
         if len(subTree.listOfNodes) == 0:
@@ -69,22 +66,18 @@ class tree:
             newNode.listOfText.append(text)
             subTree.listOfNodes.append(newNode)
             return
-
         self.addTextSubtree(subTree.listOfNodes[-1], text)
-
 
     def addText(self,text):
         if self.root.state == 'empty'or self.root.state=='text':
             self.root.state = 'text'
             self.root.listOfText.append(text)
             return
-        #if len(self.root.listOfNodes)==0:
-        #   self.root.text=text
         else:
             self.addTextSubtree(self.root, text)
 
-    def addClosingTag(self,tag): #hal lazem 3la 2 fns
-        if self.root.state == 'empty':#not empty but may need close
+    def addClosingTag(self,tag):
+        if self.root.state == 'empty':
             self.root.state = 'close'
             self.root.closingTag = tag
         elif self.root.state == 'close':
@@ -98,10 +91,7 @@ class tree:
             self.root.state = 'close'
             self.root.closingTag=tag
             self.root.listOfNodes.append(rootBranch1)
-
-
         else :
-            #self.root.state == 'passed'
             self.addClosingSubtree(self.root, tag,0)
 
     def addClosingSubtree(self,subTree,Tag,founflag):
@@ -113,186 +103,26 @@ class tree:
                    founflag = 0
                else:
                    founflag = 1
-
-
-
-          #  subTree.closingTag=Tag
-          #  subTree.state='close'
-          #  return
-        #        newNode=node()
-        #        newNode.listOfText=subTree.listOfText
-        #       subTree.listOfText=[]
-        #      newNode.closingTag = subTree.closingTag
-        #     subTree.closingTag=Tag
-        #    subTree.listOfNodes.insert(0,newNode)
-         #   subTree.state = 'close'
-          #  return
-
-
-
-        if len(subTree.listOfNodes) == 0 and subTree.state!='close':#if passed so has children#lazem tany and??
+        if len(subTree.listOfNodes) == 0 and subTree.state!='close':
            if(founflag==0):
                subTree.state = 'close'
                subTree.closingTag=Tag
                return
            else:
-               subTree.state = 'close'# momken ykon text////
+               subTree.state = 'close'
                self.addClosingSubtree(self.root, Tag,0)
                return
-
-        # if len(subTree.listOfNodes) == 0 : #lazem? #Bb Bc#lazem??#2na m4 hawsl lnode m2fola
-        #     newNode = node()
-        #     newNode.state = 'close'
-        #     newNode.openningTag=subTree.openningTag
-        #     subTree.openningTag=tag()
-        #     newNode.listOfText = subTree.listOfText
-        #     subTree.listOfText = []
-        #     newNode.closingTag = subTree.closingTag
-        #     subTree.closingTag = Tag
-
-
-        #     subTree.listOfNodes.append(newNode)
-        #     return
-        if len(subTree.listOfNodes) != 0: #Cc
+        if len(subTree.listOfNodes) != 0:
             if subTree.listOfNodes[-1].state=='close' and subTree.state!='close':
                 if (founflag == 0):
                    subTree.state = 'close'
                    subTree.closingTag = Tag
                    return
                 else:
-                    subTree.state = 'close'  # momken ykon text////
+                    subTree.state = 'close'
                     self.addClosingSubtree(self.root, Tag, 0)
                     return
-
-
         self.addClosingSubtree(subTree.listOfNodes[-1], Tag,founflag)
-
-
-    def printTree(self,file):
-        #self.printSubTree(self.root)
-        self.printSubTreeFile(self.root, file)
-
-    def printSubTreeold(self, subTree):
-        if len(subTree.listOfNodes) == 0:
-            if subTree.openningTag.type == 'no' and subTree.closingTag.type == 'no':  # m3molha creation
-                for i in range(len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-                return
-            if subTree.openningTag.type == 'empty':
-                print(subTree.openningTag.originalShape)
-                return
-            if subTree.openningTag.type == 'no':
-                print('〔ERROR7〕')
-            else:
-                print(subTree.openningTag.originalShape)
-            if subTree.listOfText != []:
-                for i in range(len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-            if subTree.closingTag.type == 'no':
-                print('〔ERROR8〕')
-            elif subTree.closingTag.name != subTree.openningTag.name:
-                print('〔ERROR9〕')
-            else:
-                print(subTree.closingTag.originalShape)
-
-        else:
-            for i in range(len(subTree.listOfNodes)):
-                self.printSubTree(subTree.listOfNodes[i])
-    def printSubTree(self,subTree):
-        if subTree.openningTag.type == 'empty':
-            print(subTree.openningTag.originalShape)
-            return
-
-        if subTree.openningTag.type!='no':
-            print(subTree.openningTag.originalShape)
-            if len(subTree.listOfText) != 0:
-                for i in range (len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-            if len(subTree.listOfNodes) != 0:
-                for i in range(len(subTree.listOfNodes)):
-                    self.printSubTree(subTree.listOfNodes[i])
-            if subTree.closingTag.type != 'no':
-                if subTree.closingTag.name != subTree.openningTag.name:
-                   print('〔ERROR7〕') #notmatching
-                else:
-                    print(subTree.closingTag.originalShape)
-                return
-            else:
-                print('〔ERROR8〕')  # missing closing
-                return
-        else:
-            if subTree.closingTag.type=='no':
-                for i in range (len(subTree.listOfText)):
-                    print(subTree.listOfText[i].originalShape)
-                return
-            else:
-                print('〔ERROR9〕')  # missing opening
-                if len(subTree.listOfText) != 0:
-                    for i in range(len(subTree.listOfText)):
-                        print(subTree.listOfText[i].originalShape)
-                if len(subTree.listOfNodes) != 0:
-                    for i in range(len(subTree.listOfNodes)):
-                         self.printSubTree(subTree.listOfNodes[i])
-
-                print(subTree.closingTag.originalShape)
-                return
-    def printSubTreeFile(self,subTree,file):
-        if subTree.openningTag.type == 'empty':
-            file.write(subTree.openningTag.errorvisualized+"\n")
-            #file.write("\n")
-            return
-
-        if subTree.openningTag.type!='no':
-            file.write(subTree.openningTag.errorvisualized+'\n'+'\t')
-            #file.write("\n")
-
-            if len(subTree.listOfText) != 0:
-                for i in range (len(subTree.listOfText)):
-                    file.write(subTree.listOfText[i].originalShape+"\n")
-                    #file.write("\n")
-
-            if len(subTree.listOfNodes) != 0:
-                for i in range(len(subTree.listOfNodes)):
-                    self.printSubTreeFile(subTree.listOfNodes[i],file)
-            if subTree.closingTag.type != 'no':
-                if subTree.closingTag.name != subTree.openningTag.name:
-                   file.write('〔ERROR7〕'+"\n") #notmatching
-                   #file.write("\n")
-
-                else:
-                    file.write(subTree.closingTag.originalShape+"\n")
-                    #file.write("\n")
-
-                return
-            else:
-                file.write('〔ERROR8〕'+"\n")  # missing closing
-                #file.write("\n")
-
-                return
-        else:
-            if subTree.closingTag.type=='no':
-                for i in range (len(subTree.listOfText)):
-                    file.write(subTree.listOfText[i].originalShape+"\n")
-                    #file.write("\n")
-
-                return
-            else:
-                file.write('〔ERROR9〕'+"\n")  # missing opening
-                #file.write("\n")
-
-                if len(subTree.listOfText) != 0:
-                    for i in range(len(subTree.listOfText)):
-                        file.write(subTree.listOfText[i].originalShape+"\n")
-                        #file.write("\n")
-
-                if len(subTree.listOfNodes) != 0:
-                    for i in range(len(subTree.listOfNodes)):
-                         self.printSubTreeFile(subTree.listOfNodes[i],file)
-
-                file.write(subTree.closingTag.originalShape+"\n")
-                #file.write("\n")
-
-                return
 
     def completeTree(self):
         if self.root.openningTag.type=='no' and self.root.closingTag.type=='no':
@@ -305,19 +135,16 @@ class tree:
             self.root.closingTag.errorvisualized = "(ERR:Missing Root)"
             self.root.closingTag.finalShape = '<' + '/'+ self.root.openningTag.name + '>'
             self.errors += 1
-
         self.completeSubTree(self.root)
         return self.errors
-    def completeSubTree(self,subTree):#el root momken yb2a fady
+    def completeSubTree(self,subTree):
         if subTree.openningTag.type == 'no' and subTree.closingTag.type != 'no':
-            #print(1)
             subTree.openningTag.name = subTree.closingTag.name
             subTree.openningTag.type='open'
             subTree.openningTag.errorvisualized = "(ERR:Missing Openning Tag)"
             subTree.openningTag.finalShape = '<' + subTree.openningTag.name + '>'
             self.errors += 1
         elif subTree.openningTag.type != 'no' and subTree.closingTag.type == 'no':
-            #print(2)
             subTree.closingTag.name = subTree.openningTag.name
             subTree.closingTag.type='close'
             subTree.closingTag.errorvisualized = "(ERR:Missing Closing Tag)"
@@ -325,13 +152,10 @@ class tree:
             self.errors += 1
         elif subTree.openningTag.type != 'no' and subTree.closingTag.type != 'no':  # mismatch
             if subTree.openningTag.name != subTree.closingTag.name:
-                #print(3)
                 subTree.closingTag.name = subTree.openningTag.name
                 subTree.closingTag.errorvisualized = "(ERR:Not Matching Tag)"
                 subTree.closingTag.finalShape = '<' + '/' + subTree.openningTag.name + '>'
                 self.errors += 1
-
-
         if len(subTree.listOfNodes) != 0:
             for i in range(len(subTree.listOfNodes)):
                 self.completeSubTree(subTree.listOfNodes[i])
@@ -341,7 +165,7 @@ class tree:
         self.visualizeSubTree(self.root,file,indentation)
 
     def visualizeSubTree(self,subTree,file,indentation):
-        if subTree.openningTag.type!='no':  #empty or openinig  must find closing
+        if subTree.openningTag.type!='no':
             file.write(indentation+subTree.openningTag.errorvisualized+subTree.openningTag.followingComment)
             if len(subTree.listOfText)==1:
                 file.write(subTree.listOfText[0].errorvisualized+subTree.listOfText[0].followingComment)
@@ -363,7 +187,7 @@ class tree:
                     if i==0:
                         file.write("\n")
                     self.visualizeSubTree(subTree.listOfNodes[i],file,indentation+"\t")
-                    file.write("\n") #??????
+                    file.write("\n")
                 if subTree.openningTag.type != 'empty':
                     file.write(indentation+subTree.closingTag.errorvisualized + subTree.closingTag.followingComment)
         else:
@@ -371,12 +195,13 @@ class tree:
                 file.write(indentation + subTree.listOfText[i].errorvisualized + subTree.listOfText[i].followingComment)
                 if i !=len(subTree.listOfText)-1:
                     file.write("\n")
+
     def prettifying(self,file):
         indentation=''
         self.prettifyingSubTree(self.root,file,indentation)
 
     def prettifyingSubTree(self,subTree,file,indentation):
-        if subTree.openningTag.type!='no':  #empty or openinig  must find closing
+        if subTree.openningTag.type!='no':
             file.write(indentation+subTree.openningTag.finalShape+subTree.openningTag.followingComment)
             if len(subTree.listOfText)==1:
                 file.write(subTree.listOfText[0].finalShape+subTree.listOfText[0].followingComment)
@@ -390,7 +215,7 @@ class tree:
                 if subTree.openningTag.type!='empty':
                     if len(subTree.listOfText)>1:
                         file.write("\n")
-                        file.write(indentation+subTree.closingTag.finalShape+subTree.closingTag.followingComment)   #+'\n'??
+                        file.write(indentation+subTree.closingTag.finalShape+subTree.closingTag.followingComment)
                     else:
                         file.write(subTree.closingTag.finalShape+subTree.closingTag.followingComment)
             else:
@@ -398,7 +223,7 @@ class tree:
                     if i==0:
                         file.write("\n")
                     self.prettifyingSubTree(subTree.listOfNodes[i],file,indentation+"\t")
-                    file.write("\n") #??????
+                    file.write("\n")
                 if subTree.openningTag.type != 'empty':
                     file.write(indentation+subTree.closingTag.finalShape + subTree.closingTag.followingComment)
         else:

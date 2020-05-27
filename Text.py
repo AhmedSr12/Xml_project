@@ -1,6 +1,6 @@
 class text:
     def __init__(self):
-        self.originalShape='' #may be deleted
+        self.originalShape=''
         self.errorvisualized=''
         self.finalShape=''
         self.followingComment=''

@@ -11,11 +11,11 @@ class tag:
         self.followingComment=''
         self.errors=0
     def validateTag(self):
-        partitionsRegEx = re.compile(r'[^<>\s]+')  #attribute value or name don't have spaces or /??
+        partitionsRegEx = re.compile(r'[^<>\s]+')
         if self.originalShape[1] == '/':
             self.name=self.originalShape[2:len(self.originalShape)-1]
             self.type = 'closing'
-        elif self.originalShape[-2] == '/': #lazem yb2a laze2
+        elif self.originalShape[-2] == '/':
             self.type = 'empty'
             partitionsList = partitionsRegEx.findall(self.originalShape)
             if len(partitionsList)==1:
@@ -40,7 +40,7 @@ class tag:
 
         if len(partitions) != 0:
             i = 0
-            while True:  # merge
+            while True:
                 if i >= len(partitions):
                     break
                 if i > 0:
@@ -69,9 +69,8 @@ class tag:
                 partitions[i] = newAttribute
 
         return partitions
-    def validateListOfAttributes(self):
-        d=11111111111111
-    def createShapes(self):  #25tsr de law mfee4 errors
+
+    def createShapes(self):
         if self.type=='closing':
             self.errorvisualized=self.originalShape
             self.finalShape=self.originalShape
@@ -108,5 +107,3 @@ class tag:
 
 
 
-        #self.errorvisualized = '<'+
-        s=1
