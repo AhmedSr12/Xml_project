@@ -10,7 +10,7 @@
 			<pointer refs="n05200169 n05616246">Attribute</pointer>
 			<pointer refs="n05616246 n05200169" source="1" target="1">Derivationally related form</pointer>
 			<pointer refs="a00002098" source="1" target="1">Antonym</pointer>
-			<def>(usually followed by `to(ERR:')) having the necessary means or skill or know-how or authority to do something</def>
+			<def>(usually followed by `to(ERR:Using ')) having the necessary means or skill or know-how or authority to do something</def>
 			<example>able to swim</example>
 			<example>she was able to program her computer</example>
 			<example>we were at last able to buy a car</example>
@@ -113,7 +113,7 @@
 			<word lex_id="0">let alone</word>
 			<word lex_id="0">not to mention</word>
 			<def>much less</def>
-			<example>she can(ERR:')t boil potatoes, let alone cook a meal</example>
+			<example>she can(ERR:Using ')t boil potatoes, let alone cook a meal</example>
 		</synset>
 		<synset id="r00116510" type="r">
 			<lex_filenum>02</lex_filenum>
@@ -294,7 +294,7 @@
 			<pointer refs="v00855512">Hypernym</pointer>
 			<pointer refs="n10526927" source="1" target="2">Derivationally related form</pointer>
 			<frame f_num="8"/>
-			<def>evaluate professionally a colleague(ERR:')s work</def>
+			<def>evaluate professionally a colleague(ERR:Using ')s work</def>
 		</synset>
 		<synset id="v01135783" type="v">
 			<lex_filenum>33</lex_filenum>
