@@ -27,7 +27,7 @@ class frame2():
         self.err =  self.A.detectErrors()
         self.DetectError_Button = Button(self.master_will_be_deleted, text=" Detect Errors ", command=self.Verifyerror, font="arial 15 italic", width=20)
         self.DetectError_Button.pack(side=BOTTOM)
-        self.string="Error Supported : \n1) Missing Root\n2) Missing Openning Tag\n3) Missing Closing Tag\n4) Not Matching Tag\n5) Using ( < , > , & , ' , \" ) in the text\n6) Attribute Value Isn't Quoted Properly"
+        self.string="Errors Supported : \n1) Missing Root\n2) Missing Openning Tag\n3) Missing Closing Tag\n4) Not Matching Tag\n5) Using ( < , > , & , ' , \" ) in the text\n6) Attribute Value Isn't Quoted Properly"
         self.Errors=Label(self.master_will_be_deleted,text= self.string, font="arial 15 italic")
         self.Errors.pack(side=BOTTOM)
 
@@ -230,7 +230,7 @@ class frame2():
         fff = open('errorVisualized.txt', 'r')
         listed = fff.readlines()
         def myfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"), width=1000, height=600)
+            canvas.configure(scrollregion=canvas.bbox("all"), width=1000, height=500)
 
         canvas = Canvas(self.Master)
         self.scroll = Frame(self.Master)
