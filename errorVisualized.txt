@@ -1,24 +1,5 @@
-<users>
-	<user>
-		<id>1(ERR:Missing Closing Tag)
-		<name>iser1</name>
-		<posts>
-			<post>
-				lorem ipsum dolor sit amet consectetuer asdister asutryo
-				tempor incident ut tyu et dolre
-			</post>
-			<post>
-				lorem ipsum dolor sit amet consectetuer asdister asutryo
-				tempor incident ut tyu et dolre
-			</post>
-		</posts>
-		<followers>
-			<follower>
-				<name>2(ERR:Not Matching Tag)
-			</follower>
-			<follower>
-				<id>4</id>
-			</follower>
-		(ERR:Missing Closing Tag)
-	</user>
-</users>
+(ERR:Missing Root)
+	jjj
+	<ali>hhhhh</ali>
+	hhhh
+(ERR:Missing Root)

@@ -73,6 +73,20 @@ class tree:
             self.root.state = 'text'
             self.root.listOfText.append(text)
             return
+        elif self.root.state=='close'or(self.root.state=='text'and self.root.openningTag.type=='no'):
+            rootBranch1=node()
+            rootBranch1.state='close'
+            rootBranch1.openningTag= self.root.openningTag
+            rootBranch1.listOfText= self.root.listOfText
+            rootBranch1.closingTag=self.root.closingTag
+            rootBranch1.listOfNodes=self.root.listOfNodes
+            self.root=node()
+            self.root.state='passed'
+            rootBranch2=node()
+            rootBranch2.state = 'text'
+            rootBranch2.listOfText.append(text)
+            self.root.listOfNodes.append( rootBranch1)
+            self.root.listOfNodes.append( rootBranch2)
         else:
             self.addTextSubtree(self.root, text)
 
