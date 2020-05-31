@@ -1,5 +1,0 @@
-(ERR:Missing Root)
-	jjj
-	<ali>hhhhh</ali>
-	hhhh
-(ERR:Missing Root)

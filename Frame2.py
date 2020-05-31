@@ -2,6 +2,7 @@ from tkinter import *
 from XmlFile import xmlFile
 import tkinter.messagebox
 from tkinter import filedialog
+import  os
 
 class frame2():
     def __init__(self,master,filePath,contents):
@@ -225,10 +226,14 @@ class frame2():
         self.prett_Button.grid(row=0, column=2)
         if self.err==0:
             self.Button2["state"] = "disabled"
+    def clear_files(self):
+        if (os.path.exists("minifying.txt")):
+            os.remove("minifying.txt")
+        if (os.path.exists("prettifying.txt")):
+            os.remove("prettifying.txt")
 
     def show_Label(self,contents="",type=0):
-        fff = open('errorVisualized.txt', 'r')
-        listed = fff.readlines()
+        self.clear_files()
         def myfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"), width=1000, height=500)
 
@@ -256,6 +261,8 @@ class frame2():
         self.text=Text(self.frame,width=5000,height=600)
         self.text.insert(INSERT, contents)
         if type==1:
+            fff = open('errorVisualized.txt', 'r')
+            listed = fff.readlines()
             for i in range (len(listed)):
                 line=listed[i]
                 for j in range (len (line)):
@@ -270,6 +277,7 @@ class frame2():
                                 self.text.tag_add('error', self.start, self.end)
                                 self.text.tag_config('error',background="yellow", foreground="black")
                                 break
-        fff.close()
+            fff.close()
+            os.remove("errorVisualized.txt")
 
         self.text.pack(side=LEFT)
